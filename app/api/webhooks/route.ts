@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { buffer } from "micro";
+import { NextResponse } from "next/server";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
@@ -29,6 +30,7 @@ export async function POST(req: any, res: any) {
     case "payment_intent.succeeded": {
       const paymentIntent: any = event.data.object;
       console.log(`PaymentIntent status: ${paymentIntent.status}`);
+      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
       break;
     }
     case "payment_intent.payment_failed": {
