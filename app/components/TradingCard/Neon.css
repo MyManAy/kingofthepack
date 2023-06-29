@@ -1,0 +1,24 @@
+@keyframes pulsate {
+  100% {
+    /* Larger blur radius */
+    text-shadow: 0 0 60px #fff, 0 0 70px #fff, 0 0 110px #fff, 0 0 160px #440732,
+      0 0 100px #fff, 0 0 60px #440732, 0 0 40px #440732, 0 0 30px #440732;
+  }
+  0% {
+    /* Smaller blur radius */
+    text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 5px #fff,
+      0 0 8px #fff, 0 0 10px #fff, 0 0 12px #fff, 0 0 15px #fff;
+  }
+}
+
+.neon {
+  color: #3f0719;
+  display: flex;
+  vertical-align: middle;
+  opacity: 0.8;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  justify-content: center;
+  animation: pulsate 1s infinite alternate;
+}

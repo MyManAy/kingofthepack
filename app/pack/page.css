@@ -1,0 +1,46 @@
+.fadein {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.fadeout {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.disappear {
+  position: absolute;
+  top: 50%;
+  animation: slide-right 1.2s ease;
+}
+
+.appear {
+  position: absolute;
+  top: 50%;
+  animation: slide-up 1.2s ease;
+}
+
+.neonText {
+  z-index: 2;
+  color: #fff;
+  font-weight: 800;
+  /* text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff; */
+}
+
+@keyframes slide-right {
+  0% {
+    margin-left: 0%;
+  }
+  100% {
+    margin-left: -200%;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    top: 150%;
+  }
+  100% {
+    top: 50%;
+  }
+}
