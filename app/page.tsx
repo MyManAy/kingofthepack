@@ -4,27 +4,6 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import MagicCard from "./components/MagicCard/MagicCard";
 import StripeCheckout from "./components/StripeCheckout";
-// import Chicken from "../public/Polygonal Animal Drawings/Common - Chicken.png";
-// import Rabbit from "../public/Polygonal Animal Drawings/Common - Rabbit.png";
-// import Rat from "../public/Polygonal Animal Drawings/Common - Rat.png";
-// import Horse1 from "../public/Polygonal Animal Drawings/Common - Horse 1.png";
-// import Horse2 from "../public/Polygonal Animal Drawings/Common - Horse 2.png";
-// import Goat from "../public/Polygonal Animal Drawings/Common - Goat.png";
-// import Deer from "../public/Polygonal Animal Drawings/Rare - Deer.png";
-// import Cat1 from "../public/Polygonal Animal Drawings/Rare - Cat 1.png";
-// import Cat2 from "../public/Polygonal Animal Drawings/Rare - Cat 2.png";
-// import Cow from "../public/Polygonal Animal Drawings/Rare - Cow.png";
-// import Dog1 from "../public/Polygonal Animal Drawings/Rare - Dog 1.png";
-// import Dog2 from "../public/Polygonal Animal Drawings/Rare - Dog 2.png";
-// import Tiger from "../public/Polygonal Animal Drawings/Epic - Tiger.png";
-// import Elephant from "../public/Polygonal Animal Drawings/Epic - Elephant.png";
-// import Dolphin1 from "../public/Polygonal Animal Drawings/Epic - Dolphin 1.png";
-// import Dolphin2 from "../public/Polygonal Animal Drawings/Epic - Dolphin 2.png";
-// import Lion from "../public/Polygonal Animal Drawings/Golden - Lion.png";
-// import Eagle1 from "../public/Polygonal Animal Drawings/Golden - Eagle 1.png";
-// import Eagle2 from "../public/Polygonal Animal Drawings/Golden - Eagle 2.png";
-// import ScarletMacaw from "../public/Polygonal Animal Drawings/King of the Pack - Scarlet Macaw.png";
-// import TradingCard from "./components/TradingCard";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
