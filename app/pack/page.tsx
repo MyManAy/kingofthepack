@@ -7,11 +7,15 @@ import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
 import { randomCardPropsChooser } from "../utils/weightedRandom";
 
+import { useRouter } from "next/navigation";
+
 export default () => {
+  const router = useRouter();
   const [arrowVisible, setArrowVisible] = useState(false);
   const [hasBeenFlipped, setHasBeenFlipped] = useState(false);
   const [pack, setPack] = useState(null as null | IAppProps[]);
   const [flipped, setFlipped] = useState(false);
+  const NUMBER_OF_CARDS = 10;
 
   const onArrowClick = () => {
     if (arrowVisible) {
@@ -34,7 +38,7 @@ export default () => {
 
   useEffect(() => {
     let props: IAppProps[] = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < NUMBER_OF_CARDS; i++) {
       props.push(randomCardPropsChooser());
     }
     setPack(props);
@@ -60,6 +64,10 @@ export default () => {
     };
   }, [flipped]);
 
+  useEffect(() => {
+    if (pack && pack.length === 0) router.push("/");
+  }, [pack]);
+
   return (
     <div className="flex flex-col gap-10 justify-center align-middle">
       <div className="text-white flex absolute left-3 pt-1 justify-center align-middle text-5xl font-bold">
@@ -82,7 +90,7 @@ export default () => {
           }
         }}
       />
-      {pack && (
+      {pack && pack.length > 0 && (
         <div
           className={!arrowVisible && hasBeenFlipped ? "disappear" : "appear"}
           onClick={onCardClick}
