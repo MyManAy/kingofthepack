@@ -1,8 +1,7 @@
 import Stripe from "stripe";
-import { env } from "node:process";
 import { buffer } from "micro";
 
-const stripe: Stripe = new (Stripe as any)(env.STRIPE_SECRET_KEY!);
+const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export async function POST(req: any, res: any) {

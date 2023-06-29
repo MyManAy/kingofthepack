@@ -1,7 +1,6 @@
-import { env } from "node:process";
 import { NextResponse } from "next/server";
 
-const stripe = require("stripe")(env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const errorLink = "http://localhost:3000/404";
 const originLink = "http://localhost:3000";
 const priceId = "price_1NN69cGNnS1hfAQ8TEoSYNG0";
