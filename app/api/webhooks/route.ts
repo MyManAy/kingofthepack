@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { buffer } from "micro";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
 
 export async function POST(req: any, res: any) {
   const buf = await buffer(req);
