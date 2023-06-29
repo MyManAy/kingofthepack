@@ -35,6 +35,7 @@ export async function POST(req: any, res: any) {
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
+      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
       console.log(
         `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
       );
@@ -42,11 +43,13 @@ export async function POST(req: any, res: any) {
     }
     case "charge.succeeded": {
       const charge: any = event.data.object;
+      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
       console.log(`Charge id: ${charge.id}`);
       break;
     }
     default: {
       console.warn(`Unhandled event type: ${event.type}`);
+      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
       break;
     }
   }
