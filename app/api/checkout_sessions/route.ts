@@ -20,6 +20,7 @@ export async function POST(req: Request, res: Response) {
       success_url: `${originLink}/?success=true`,
       cancel_url: `${originLink}/?canceled=true`,
     });
+    console.log("worked this is the test");
     return NextResponse.redirect(session.url, 303);
   } catch (err) {
     console.log(err);
