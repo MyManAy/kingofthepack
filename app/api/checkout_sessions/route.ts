@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const errorLink = "http://localhost:3000/404";
-const originLink = "http://localhost:3000";
+const errorLink = "https://kingofthepack.vercel.app/404";
+const originLink = "https://kingofthepack.vercel.app";
 const priceId = "price_1NN69cGNnS1hfAQ8TEoSYNG0";
 
 export async function POST(req: Request, res: Response) {
