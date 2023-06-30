@@ -1,5 +1,4 @@
 import Stripe from "stripe";
-import { buffer } from "micro";
 import { firestore } from "../../utils/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { headers } from "next/dist/client/components/headers";
@@ -20,12 +19,12 @@ export async function POST(req: any, res: any) {
   const stripeSignature = headersList.get("Stripe-Signature");
   console.log(stripeSignature);
 
-  const buf = await buffer(req);
+  const payload = JSON.stringify(req.body, null, 2);
 
   let event;
   try {
     event = stripe.webhooks.constructEvent(
-      buf,
+      payload,
       stripeSignature!,
       webhookSecret!
     );
