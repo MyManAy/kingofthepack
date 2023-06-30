@@ -46,7 +46,7 @@ export async function POST(req: Request, res: any) {
       const paymentIntent: any = event.data.object;
       console.log(`PaymentIntent status: ${paymentIntent.status}`);
       await add();
-      return NextResponse.redirect("/pack");
+      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
