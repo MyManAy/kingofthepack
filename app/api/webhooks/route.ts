@@ -1,9 +1,18 @@
 import Stripe from "stripe";
 import { buffer } from "micro";
-import { NextResponse } from "next/server";
+import { firestore } from "../../utils/firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
+
+const usersCollection = collection(firestore, "users");
+const add = async () => {
+  addDoc(usersCollection, {
+    name: "nithin",
+    age: 17,
+  });
+};
 
 export async function POST(req: any, res: any) {
   const buf = await buffer(req);
@@ -30,12 +39,11 @@ export async function POST(req: any, res: any) {
     case "payment_intent.succeeded": {
       const paymentIntent: any = event.data.object;
       console.log(`PaymentIntent status: ${paymentIntent.status}`);
-      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
+      await add();
       break;
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
-      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
       console.log(
         `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
       );
@@ -43,13 +51,11 @@ export async function POST(req: any, res: any) {
     }
     case "charge.succeeded": {
       const charge: any = event.data.object;
-      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
       console.log(`Charge id: ${charge.id}`);
       break;
     }
     default: {
       console.warn(`Unhandled event type: ${event.type}`);
-      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
       break;
     }
   }
