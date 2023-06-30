@@ -46,7 +46,7 @@ export async function POST(req: Request, res: any) {
       const paymentIntent: any = event.data.object;
       console.log(`PaymentIntent status: ${paymentIntent.status}`);
       await add();
-      break;
+      return NextResponse.redirect("/pack");
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
