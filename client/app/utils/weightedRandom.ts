@@ -1,7 +1,7 @@
-import { QuerySnapshot, collection } from "firebase/firestore";
 import cardPropsJson from "./cardPropsFromImages.json";
-import { firestore } from "./firebase";
 import { IAppProps, Rarity } from "../components/TradingCard/TradingCard";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "./firebase";
 
 export default function weightedRandom(spec: number[]) {
   let table = [] as string[];
@@ -22,7 +22,7 @@ const cardProps = cardPropsJson as unknown as IAppProps[];
 
 export const getAllCards = async () => {
   const cardCollection = collection(firestore, "cards");
-  const snapshot: QuerySnapshot = await (cardCollection as any).get();
+  const snapshot = await getDocs(cardCollection);
   snapshot.forEach((doc) => {
     console.log(doc.id, "=>", doc.data());
   });
