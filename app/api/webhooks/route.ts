@@ -14,6 +14,12 @@ const add = async () => {
   });
 };
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 export async function POST(req: any, res: any) {
   const headersList = headers();
   const stripeSignature = headersList.get("Stripe-Signature");
@@ -24,7 +30,7 @@ export async function POST(req: any, res: any) {
   let event;
   try {
     event = stripe.webhooks.constructEvent(
-      req.rawBody,
+      req.body,
       stripeSignature!,
       webhookSecret!
     );
