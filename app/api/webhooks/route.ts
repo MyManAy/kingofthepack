@@ -9,6 +9,7 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
 
 const usersCollection = collection(firestore, "users");
 const add = async () => {
+  console.log("yes");
   addDoc(usersCollection, {
     name: "nithin",
     age: 17,
