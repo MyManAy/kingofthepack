@@ -4,6 +4,7 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import MagicCard from "./components/MagicCard/MagicCard";
 import StripeCheckout from "./components/StripeCheckout";
+import { getAllCards } from "./utils/weightedRandom";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -11,6 +12,7 @@ const stripePromise = loadStripe(
 
 export default () => {
   React.useEffect(() => {
+    getAllCards();
     const query = new URLSearchParams(window.location.search);
     if (query.get("success")) {
       console.log("Order placed! You will receive an email confirmation.");

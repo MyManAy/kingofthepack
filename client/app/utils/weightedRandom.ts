@@ -1,5 +1,5 @@
-import { IAppProps, Rarity } from "../components/TradingCard/TradingCard";
-import cardPropsJson from "./cardPropsFromImages.json";
+import { QuerySnapshot, collection } from "firebase/firestore";
+import { firestore } from "./firebase";
 
 export default function weightedRandom(spec: number[]) {
   let table = [] as string[];
@@ -16,21 +16,29 @@ export default function weightedRandom(spec: number[]) {
   };
 }
 
-const cardProps = cardPropsJson as unknown as IAppProps[];
-const rarities: Rarity[] = [
-  "Common",
-  "Rare",
-  "Epic",
-  "Golden",
-  "King of the Pack",
-];
-const randomRarityChooser = () =>
-  rarities[Number(weightedRandom([0.6, 0.3, 0.075, 0.02, 0.005])())];
-
-export const randomCardPropsChooser = () => {
-  const chosenRarity = randomRarityChooser();
-  const cardsOfRarity = cardProps.filter(
-    (item) => item.rarity === chosenRarity
-  );
-  return cardsOfRarity[Math.floor(Math.random() * cardsOfRarity.length)];
+export const getAllCards = async () => {
+  const cardCollection = collection(firestore, "cards");
+  const snapshot: QuerySnapshot = await (cardCollection as any).get();
+  snapshot.forEach((doc) => {
+    console.log(doc.id, "=>", doc.data());
+  });
 };
+
+// const cardProps = fire
+// const rarities: Rarity[] = [
+//   "Common",
+//   "Rare",
+//   "Epic",
+//   "Golden",
+//   "King of the Pack",
+// ];
+// const randomRarityChooser = () =>
+//   rarities[Number(weightedRandom([0.6, 0.3, 0.075, 0.02, 0.005])())];
+
+// export const randomCardPropsChooser = () => {
+//   const chosenRarity = randomRarityChooser();
+//   const cardsOfRarity = cardProps.filter(
+//     (item) => item.rarity === chosenRarity
+//   );
+//   return cardsOfRarity[Math.floor(Math.random() * cardsOfRarity.length)];
+// };
