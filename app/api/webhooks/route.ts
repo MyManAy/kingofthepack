@@ -25,7 +25,7 @@ export async function POST(req: any, res: any) {
   let event;
   try {
     event = stripe.webhooks.constructEvent(
-      buf.toString(),
+      buf,
       stripeSignature!,
       webhookSecret!
     );
