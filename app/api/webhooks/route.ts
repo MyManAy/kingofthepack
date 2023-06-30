@@ -15,7 +15,7 @@ const add = async () => {
 };
 
 export async function POST(req: Request, res: any) {
-  const json = await req.json();
+  const text = await req.text();
   const headersList = headers();
   const stripeSignature = headersList.get("Stripe-Signature");
   console.log(stripeSignature);
@@ -25,7 +25,7 @@ export async function POST(req: Request, res: any) {
   let event;
   try {
     event = stripe.webhooks.constructEvent(
-      json,
+      text,
       stripeSignature!,
       webhookSecret!
     );
