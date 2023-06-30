@@ -14,7 +14,7 @@ const add = async () => {
 };
 
 export async function POST(req: any, res: any) {
-  const signature = req.headers["stripe-signature"];
+  const signature = req.headers["Stripe-Signature"];
 
   let event = req.body;
   try {
