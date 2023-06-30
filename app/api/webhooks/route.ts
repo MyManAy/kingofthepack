@@ -14,12 +14,6 @@ const add = async () => {
   });
 };
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 export async function POST(req: any, res: any) {
   const headersList = headers();
   const stripeSignature = headersList.get("Stripe-Signature");
