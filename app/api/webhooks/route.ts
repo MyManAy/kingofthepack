@@ -19,12 +19,12 @@ export async function POST(req: any, res: any) {
   const stripeSignature = headersList.get("Stripe-Signature");
   console.log(stripeSignature);
 
-  const payload = JSON.stringify(req.body, null, 2);
+  // const payload = JSON.stringify(req.body, null, 2);
 
   let event;
   try {
     event = stripe.webhooks.constructEvent(
-      payload,
+      req.rawBody,
       stripeSignature!,
       webhookSecret!
     );
