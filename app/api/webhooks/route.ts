@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import { firestore } from "../../utils/firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { headers } from "next/headers";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
@@ -14,12 +15,17 @@ const add = async () => {
 };
 
 export async function POST(req: any, res: any) {
-  const signature = req.headers["Stripe-Signature"];
-  console.log(signature);
+  const headersList = headers();
+  const stripeSignature = headersList.get("Stripe-Signature");
+  console.log(stripeSignature);
 
   let event = req.body;
   try {
-    event = stripe.webhooks.constructEvent(req.body, signature, webhookSecret!);
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      stripeSignature!,
+      webhookSecret!
+    );
   } catch (err) {
     // On error, log and return the error message.
     console.log(`❌ Error message: ${(err as any).message}`);
