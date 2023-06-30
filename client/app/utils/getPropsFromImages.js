@@ -1,5 +1,8 @@
 var fs = require("fs");
+var { firestore } = "./firebase";
+var { addDoc, collection } = "firebase/firestore";
 
+console.log(collection);
 const obj = fs
   .readdirSync(
     "C:/Users/nithi/Documents/VSCodeProjects/payments/public/Polygonal Animal Drawings"
@@ -11,6 +14,15 @@ const obj = fs
     variation: file.match(/(\d+) of/)?.[1],
     totalVariations: file.match(/(\d+)\.png/)?.[1],
   }));
+
+const cardsCollection = collection(firestore, "cards");
+const add = async () => {
+  obj.forEach((item) => {
+    addDoc(cardsCollection, item);
+  });
+};
+
+add();
 
 const json = JSON.stringify(obj);
 

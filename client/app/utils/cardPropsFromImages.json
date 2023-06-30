@@ -1,0 +1,122 @@
+[
+  {
+    "src": "/Polygonal Animal Drawings/Common - Chicken.png",
+    "animalName": "Chicken",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Common - Goat.png",
+    "animalName": "Goat",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Common - Horse 1 of 2.png",
+    "animalName": "Horse",
+    "rarity": "Common",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Common - Horse 2 of 2.png",
+    "animalName": "Horse",
+    "rarity": "Common",
+    "variation": "2",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Common - Rabbit.png",
+    "animalName": "Rabbit",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Common - Rat.png",
+    "animalName": "Rat",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Epic - Dolphin 1 of 2.png",
+    "animalName": "Dolphin",
+    "rarity": "Epic",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Epic - Dolphin 2 of 2.png",
+    "animalName": "Dolphin",
+    "rarity": "Epic",
+    "variation": "2",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Epic - Elephant.png",
+    "animalName": "Elephant",
+    "rarity": "Epic"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Epic - Tiger.png",
+    "animalName": "Tiger",
+    "rarity": "Epic"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Golden - Eagle 1 of 2.png",
+    "animalName": "Eagle",
+    "rarity": "Golden",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Golden - Eagle 2 of 2.png",
+    "animalName": "Eagle",
+    "rarity": "Golden",
+    "variation": "2",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Golden - Lion.png",
+    "animalName": "Lion",
+    "rarity": "Golden"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/King of the Pack - Scarlet Macaw.png",
+    "animalName": "Scarlet Macaw",
+    "rarity": "King of the Pack"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Rare - Cat 1 of 2.png",
+    "animalName": "Cat",
+    "rarity": "Rare",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Rare - Cat 2 of 2.png",
+    "animalName": "Cat",
+    "rarity": "Rare",
+    "variation": "2",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Rare - Cow.png",
+    "animalName": "Cow",
+    "rarity": "Rare"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Rare - Deer.png",
+    "animalName": "Deer",
+    "rarity": "Rare"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Rare - Dog 1 of 2.png",
+    "animalName": "Dog",
+    "rarity": "Rare",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Polygonal Animal Drawings/Rare - Dog 2 of 2.png",
+    "animalName": "Dog",
+    "rarity": "Rare",
+    "variation": "2",
+    "totalVariations": "2"
+  }
+]

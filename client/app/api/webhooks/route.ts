@@ -20,9 +20,6 @@ export async function POST(req: Request, res: any) {
   const text = await req.text();
   const headersList = headers();
   const stripeSignature = headersList.get("Stripe-Signature");
-  console.log(stripeSignature);
-
-  // const payload = JSON.stringify(req.body, null, 2);
 
   let event;
   try {
