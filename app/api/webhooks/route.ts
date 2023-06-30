@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import { firestore } from "../../utils/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { headers } from "next/dist/client/components/headers";
+import { NextResponse } from "next/server";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
@@ -63,7 +64,7 @@ export async function POST(req: Request, res: any) {
       break;
     }
   }
-
-  // Return a response to acknowledge receipt of the event.
-  res.json({ received: true });
+  return NextResponse.json({
+    recieved: true,
+  });
 }
