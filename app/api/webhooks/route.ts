@@ -1,5 +1,4 @@
 import Stripe from "stripe";
-import { buffer } from "micro";
 import { firestore } from "../../utils/firebase";
 import { addDoc, collection } from "firebase/firestore";
 
@@ -15,16 +14,11 @@ const add = async () => {
 };
 
 export async function POST(req: any, res: any) {
-  const buf = await buffer(req);
   const signature = req.headers["stripe-signature"];
 
-  let event;
+  let event = req.body;
   try {
-    event = stripe.webhooks.constructEvent(
-      buf.toString(),
-      signature,
-      webhookSecret!
-    );
+    event = stripe.webhooks.constructEvent(req.body, signature, webhookSecret!);
   } catch (err) {
     // On error, log and return the error message.
     console.log(`❌ Error message: ${(err as any).message}`);
