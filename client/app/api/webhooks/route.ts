@@ -1,6 +1,9 @@
 import Stripe from "stripe";
 import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
+import { supabase } from "@/app/utils/supabase";
+
+const originLink = "https://kingofthepack.vercel.app";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
@@ -29,8 +32,15 @@ export async function POST(req: Request, res: any) {
 
   switch (event.type) {
     case "payment_intent.succeeded": {
+      const { data: pack } = await supabase
+        .from("pack")
+        .select("id")
+        .eq("name", "polygon booster pack");
+      const packId = pack?.[0].id;
+
       const paymentIntent: any = event.data.object;
       console.log(`PaymentIntent status: ${paymentIntent.status}`);
+      return NextResponse.redirect(`${originLink}/pack?packId=${packId}`, 303);
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
