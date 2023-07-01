@@ -27,7 +27,7 @@ export async function POST(req: Request, res: Response) {
       cancel_url: `${originLink}?canceled=true`,
     });
     console.log("worked this is the test");
-    return NextResponse.redirect("https://kingofthepack.vercel.app/", 303);
+    return NextResponse.redirect(session.url, 303);
   } catch (err) {
     console.log(err);
     return NextResponse.json({
