@@ -23,10 +23,11 @@ export async function POST(req: Request, res: Response) {
         },
       ],
       mode: "payment",
-      success_url: `${originLink}?succeded=true}`,
+      success_url: `${originLink}?succeded=true`,
       cancel_url: `${originLink}?canceled=true`,
     });
-    console.log(session);
+    console.log("worked this is the test");
+    return NextResponse.redirect("https://kingofthepack.vercel.app");
   } catch (err) {
     console.log(err);
     return NextResponse.json({
