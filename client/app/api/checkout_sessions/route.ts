@@ -1,4 +1,4 @@
-import supabase from "@/app/utils/supabase";
+import { supabase } from "@/app/utils/supabase";
 import { NextResponse } from "next/server";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
