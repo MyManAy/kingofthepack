@@ -1,20 +1,9 @@
 import Stripe from "stripe";
-import { firestore } from "../../utils/firebase";
-import { addDoc, collection } from "firebase/firestore";
 import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
-
-const usersCollection = collection(firestore, "users");
-const add = async () => {
-  console.log("yes");
-  addDoc(usersCollection, {
-    name: "nithin",
-    age: 17,
-  });
-};
 
 export async function POST(req: Request, res: any) {
   const text = await req.text();
@@ -42,8 +31,6 @@ export async function POST(req: Request, res: any) {
     case "payment_intent.succeeded": {
       const paymentIntent: any = event.data.object;
       console.log(`PaymentIntent status: ${paymentIntent.status}`);
-      await add();
-      return NextResponse.redirect("https://kingofthepack.vercel.app/pack");
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
