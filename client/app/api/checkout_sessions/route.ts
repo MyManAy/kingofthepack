@@ -26,8 +26,7 @@ export async function POST(req: Request, res: Response) {
       success_url: `${originLink}?succeded=true}`,
       cancel_url: `${originLink}?canceled=true`,
     });
-    console.log("worked this is the test");
-    // return NextResponse.json({ recieved: true });
+    console.log(session);
   } catch (err) {
     console.log(err);
     return NextResponse.json({
