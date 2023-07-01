@@ -8,6 +8,7 @@ import { IAppProps } from "../components/TradingCard/TradingCard";
 import { randomCardPropsChooser } from "../utils/weightedRandom";
 
 import { useRouter } from "next/navigation";
+import { supabase } from "../utils/supabase";
 
 export default () => {
   const router = useRouter();
@@ -37,11 +38,25 @@ export default () => {
   };
 
   useEffect(() => {
+    supabase
+      .channel("openedPackChannel")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "openedPack" },
+        (payload) => {
+          console.log("Change received!", payload);
+        }
+      )
+      .subscribe();
     let props: IAppProps[] = [];
     for (let i = 0; i < NUMBER_OF_CARDS; i++) {
       props.push(randomCardPropsChooser());
     }
     setPack(props);
+
+    return () => {
+      supabase.removeAllChannels();
+    };
   }, []);
 
   useEffect(() => {

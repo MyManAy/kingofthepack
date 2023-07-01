@@ -23,7 +23,7 @@ export async function POST(req: Request, res: Response) {
         },
       ],
       mode: "payment",
-      success_url: `${originLink}?succeded=true`,
+      success_url: `${originLink}/pack`,
       cancel_url: `${originLink}?canceled=true`,
     });
     console.log("worked this is the test");
