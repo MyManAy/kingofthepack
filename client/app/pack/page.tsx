@@ -38,6 +38,11 @@ export default () => {
   };
 
   useEffect(() => {
+    let props: IAppProps[] = [];
+    for (let i = 0; i < NUMBER_OF_CARDS; i++) {
+      props.push(randomCardPropsChooser());
+    }
+    setPack(props);
     supabase
       .channel("openedPackChannel")
       .on(
@@ -48,11 +53,6 @@ export default () => {
         }
       )
       .subscribe();
-    let props: IAppProps[] = [];
-    for (let i = 0; i < NUMBER_OF_CARDS; i++) {
-      props.push(randomCardPropsChooser());
-    }
-    setPack(props);
 
     return () => {
       supabase.removeAllChannels();
