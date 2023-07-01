@@ -2,7 +2,6 @@ import Stripe from "stripe";
 import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
 import { supabase } from "@/app/utils/supabase";
-import { useRouter } from "next/navigation";
 
 const originLink = "https://kingofthepack.vercel.app";
 
@@ -10,7 +9,6 @@ const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
 
 export async function POST(req: Request, res: any) {
-  const router = useRouter();
   const text = await req.text();
   const headersList = headers();
   const stripeSignature = headersList.get("Stripe-Signature");
@@ -54,7 +52,6 @@ export async function POST(req: Request, res: any) {
       const charge: any = event.data.object;
       console.log(`Charge id: ${charge.id}`);
 
-      router.push("/pack");
       break;
     }
     default: {
