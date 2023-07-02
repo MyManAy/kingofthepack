@@ -20,7 +20,7 @@ export default function App() {
           <div className="heading">
             <h1 className="text text-large">Sign In</h1>
             <p className="text text-normal">
-              New user?{" "}
+              New user?
               <span>
                 <a href="#" className="text text-links">
                   Create an account
