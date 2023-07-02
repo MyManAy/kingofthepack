@@ -48,6 +48,7 @@ export async function POST(req: Request, res: any) {
         .select("id")
         .eq("name", "polygon booster pack");
       const packId = pack?.[0].id;
+      console.log(packId);
 
       const charge: any = event.data.object;
       console.log(`Charge id: ${charge.id}`);
