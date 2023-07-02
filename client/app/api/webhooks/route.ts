@@ -36,6 +36,12 @@ export async function POST(req: Request, res: any) {
       console.log(
         `PaymentIntent success: ${JSON.stringify(paymentIntent, null, 4)}`
       );
+      break;
+    }
+    case "checkout.session.completed": {
+      const checkoutSession: any = event.data.object;
+      console.log(`Checkout Session: ${checkoutSession}`);
+      break;
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
