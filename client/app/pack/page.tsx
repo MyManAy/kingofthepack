@@ -99,7 +99,8 @@ export default () => {
             )
           )`
             )
-            .eq("id", payload.new.id);
+            .eq("id", payload.new.id)
+            .single();
           console.log(openedPack);
         }
       )
