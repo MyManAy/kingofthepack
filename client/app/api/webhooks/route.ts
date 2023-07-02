@@ -43,16 +43,37 @@ export async function POST(req: Request, res: any) {
       break;
     }
     case "charge.succeeded": {
+      // const { data: openedPack } = await supabase
+      //         .from("openedPack")
+      //         .select(
+      //           `pack (
+      //         totalCards,
+      //         set (
+      //           weighting (
+      //             rarity,
+      //             weighting
+      //           ),
+      //           card (
+      //             src,
+      //             animalName,
+      //             rarity,
+      //             variation,
+      //             totalVariations
+      //           )
+      //         )
+      //       )`
+      //         )
+      //         .eq("id", payload.new.id)
+      //         .single();
+      //       console.log(openedPack);
       const { data: pack } = await supabase
         .from("pack")
         .select("id")
         .eq("name", "polygon booster pack");
       const packId = pack?.[0].id;
       console.log(packId);
-
       const charge: any = event.data.object;
-      console.log(`Charge id: ${charge.id}`);
-
+      console.log(`Charge id: ${charge}`);
       break;
     }
     default: {
