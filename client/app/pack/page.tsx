@@ -43,20 +43,6 @@ export default () => {
       props.push(randomCardPropsChooser());
     }
     setPack(props);
-    supabase
-      .channel("openedPackChannel")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "openedPack" },
-        (payload) => {
-          console.log("Change received!", payload);
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeAllChannels();
-    };
   }, []);
 
   useEffect(() => {
@@ -82,6 +68,23 @@ export default () => {
   useEffect(() => {
     if (pack && pack.length === 0) router.push("/");
   }, [pack]);
+
+  useEffect(() => {
+    supabase
+      .channel("openedPackChannel")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "openedPack" },
+        (payload) => {
+          console.log("Change received!", payload);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeAllChannels();
+    };
+  }, [supabase]);
 
   return (
     <div className="flex flex-col gap-10 justify-center align-middle">
