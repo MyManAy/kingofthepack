@@ -1,17 +1,34 @@
 "use client";
 
-import { useEffect } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { supabase } from "../utils/supabase";
 import "./page.css";
 
 export default function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const signUp = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
   };
-  useEffect(() => {}, []);
+
+  const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // signUp(email, password);
+    console.log(email, password);
+  };
 
   return (
     <main className="main">
@@ -28,7 +45,7 @@ export default function App() {
               </span>
             </p>
           </div>
-          <form name="signin" className="form">
+          <form name="signin" className="form" onSubmit={handleSubmit}>
             <div className="input-control">
               <label htmlFor="email" className="input-label" hidden>
                 Email Address
@@ -39,6 +56,8 @@ export default function App() {
                 id="email"
                 className="input-field"
                 placeholder="Email Address"
+                value={email}
+                onChange={handleEmail}
               />
             </div>
             <div className="input-control">
@@ -51,6 +70,8 @@ export default function App() {
                 id="password"
                 className="input-field"
                 placeholder="Password"
+                value={password}
+                onChange={handlePassword}
               />
             </div>
             <div className="input-control">
@@ -62,7 +83,6 @@ export default function App() {
                 name="submit"
                 className="input-submit"
                 value="Sign In"
-                disabled
               />
             </div>
           </form>
@@ -74,20 +94,7 @@ export default function App() {
           <div className="method">
             <div className="method-control">
               <a href="#" className="method-action">
-                <i className="ion ion-logo-google"></i>
                 <span>Sign in with Google</span>
-              </a>
-            </div>
-            <div className="method-control">
-              <a href="#" className="method-action">
-                <i className="ion ion-logo-facebook"></i>
-                <span>Sign in with Facebook</span>
-              </a>
-            </div>
-            <div className="method-control">
-              <a href="#" className="method-action">
-                <i className="ion ion-logo-apple"></i>
-                <span>Sign in with Apple</span>
               </a>
             </div>
           </div>
