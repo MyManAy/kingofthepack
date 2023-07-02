@@ -85,19 +85,19 @@ export interface Database {
           created_at: string | null
           id: number
           packId: number
-          userId: number
+          userEmail: string
         }
         Insert: {
           created_at?: string | null
           id?: number
           packId: number
-          userId: number
+          userEmail: string
         }
         Update: {
           created_at?: string | null
           id?: number
           packId?: number
-          userId?: number
+          userEmail?: string
         }
         Relationships: [
           {
@@ -107,10 +107,10 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "openedPack_userId_fkey"
-            columns: ["userId"]
+            foreignKeyName: "openedPack_userEmail_fkey"
+            columns: ["userEmail"]
             referencedRelation: "user"
-            referencedColumns: ["id"]
+            referencedColumns: ["email"]
           }
         ]
       }
@@ -166,20 +166,17 @@ export interface Database {
       user: {
         Row: {
           created_at: string | null
-          gmail: string
-          id: number
+          email: string
           name: string
         }
         Insert: {
           created_at?: string | null
-          gmail: string
-          id?: number
+          email: string
           name: string
         }
         Update: {
           created_at?: string | null
-          gmail?: string
-          id?: number
+          email?: string
           name?: string
         }
         Relationships: []
@@ -188,29 +185,29 @@ export interface Database {
         Row: {
           created_at: string | null
           id: number
-          packId: number
           rarity: string
+          setId: number
           weighting: number
         }
         Insert: {
           created_at?: string | null
           id?: number
-          packId: number
           rarity: string
+          setId: number
           weighting: number
         }
         Update: {
           created_at?: string | null
           id?: number
-          packId?: number
           rarity?: string
+          setId?: number
           weighting?: number
         }
         Relationships: [
           {
-            foreignKeyName: "weighting_packId_fkey"
-            columns: ["packId"]
-            referencedRelation: "pack"
+            foreignKeyName: "weighting_setId_fkey"
+            columns: ["setId"]
+            referencedRelation: "set"
             referencedColumns: ["id"]
           }
         ]

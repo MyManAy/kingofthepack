@@ -74,8 +74,33 @@ export default () => {
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "openedPack" },
-        (payload) => {
-          console.log("Change received!", payload);
+        async (payload) => {
+          // const email = payload.new.userEmail;
+          // if (email === "nithin.monni@gmail.com") {
+          //   console.log("yes!!!");
+          // }
+          const { data: openedPack } = await supabase
+            .from("openedPack")
+            .select(
+              `pack (
+            totalCards, 
+            set (
+              weighting (
+                rarity,
+                weighting
+              ),
+              card (
+                src,
+                animalName,
+                rarity,
+                variation,
+                totalVariations
+              )
+            )
+          )`
+            )
+            .eq("id", payload.new.id);
+          console.log(openedPack);
         }
       )
       .subscribe();
