@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
-// import { supabase } from "@/app/utils/supabase";
+import { supabase } from "@/app/utils/supabase";
 
 const originLink = "https://kingofthepack.vercel.app";
 
@@ -51,36 +51,42 @@ export async function POST(req: Request, res: any) {
       );
       const productId =
         expandedSession.line_items?.data[0].price?.product.toString();
-      // const { data: pack } = await supabase
-      //   .from("pack")
-      //   .select(`id, totalCards,
-      //             set (
-      //               weighting (
-      //                 rarity,
-      //                 weighting
-      //               ),
-      //             card (
-      //               src,
-      //               animalName,
-      //               rarity,
-      //               variation,
-      //               totalVariations
-      //             )
-      //   `)
-      //   .eq("stripeProductId", productId)
-      //   .single();
-      // const {id, setId} = pack!;
+      const { data: pack } = await supabase
+        .from("pack")
+        .select(
+          `
+        id, 
+        totalCards, 
+          set (
+            weighting (
+              rarity,
+              weighting
+            ),
+            card (
+              src,
+              animalName,
+              rarity,
+              variation,
+              totalVariations
+            )
+          )
+        `
+        )
+        .eq("stripeProductId", productId)
+        .single();
+
+      const { id: packId, totalCards } = pack!;
+      const { weighting: weightings, card: cards } = pack!.set!;
+
+      console.log(packId, totalCards);
+      console.log(`${JSON.stringify(weightings, null, 4)}`);
+      console.log(`${JSON.stringify(cards, null, 4)}`);
+
       // const { data: openedPack } = await supabase
       //   .from("openedPack")
       //   .insert({ packId: packId!, userEmail: "nithin.monni@gmail.com" })
       //   .select("id")
       //   .single();
-      // const openedPackId = openedPack?.id;
-      // const {data: }
-      // const {data: cards} = await supabase.from("circulationCard").insert([
-      //   {openedPackId: openedPackId!, }
-      // ])
-
       break;
     }
     // case "payment_intent.payment_failed": {
