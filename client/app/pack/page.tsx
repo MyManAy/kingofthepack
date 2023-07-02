@@ -37,18 +37,6 @@ export default () => {
   };
 
   useEffect(() => {
-    const logId = async () => {
-      const { data: set } = await supabase
-        .from("set")
-        .select("id")
-        .eq("name", "polygon");
-
-      const setId = set![0].id;
-
-      console.log(setId);
-    };
-    logId();
-    supabase.from("user").select("*");
     let props: IAppProps[] = [];
     for (let i = 0; i < NUMBER_OF_CARDS; i++) {
       props.push(randomCardPropsChooser());
@@ -80,22 +68,22 @@ export default () => {
     if (pack && pack.length === 0) router.push("/");
   }, [pack]);
 
-  // useEffect(() => {
-  //   const openedPackChannel = supabase
-  //     .channel("openedPackChannel")
-  //     .on(
-  //       "postgres_changes",
-  //       { event: "INSERT", schema: "public", table: "openedPack" },
-  //       (payload) => {
-  //         console.log("Change received!", payload);
-  //       }
-  //     )
-  //     .subscribe();
+  useEffect(() => {
+    const openedPackChannel = supabase
+      .channel("openedPackChannel")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "openedPack" },
+        (payload) => {
+          console.log("Change received!", payload);
+        }
+      )
+      .subscribe();
 
-  //   return () => {
-  //     supabase.removeChannel(openedPackChannel);
-  //   };
-  // }, [supabase]);
+    return () => {
+      supabase.removeChannel(openedPackChannel);
+    };
+  }, [supabase]);
 
   return (
     <div className="flex flex-col gap-10 justify-center align-middle">
