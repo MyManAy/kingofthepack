@@ -64,8 +64,8 @@ export default function App() {
       weightings.find((item) => item.rarity === rarity);
     const sorted = propWithCount.sort(
       (a, b) =>
-        getWeightingFromRarity(a.rarity)!.weighting -
-        getWeightingFromRarity(b.rarity)!.weighting
+        getWeightingFromRarity(b.rarity)!.weighting -
+        getWeightingFromRarity(a.rarity)!.weighting
     );
     setCardProps(sorted);
   };
