@@ -6,8 +6,8 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
 import { randomCardPropsChooser } from "../utils/weightedRandom";
-
 import { useRouter } from "next/navigation";
+import { supabase } from "../utils/supabase";
 
 export default () => {
   const router = useRouter();
@@ -37,6 +37,18 @@ export default () => {
   };
 
   useEffect(() => {
+    const logId = async () => {
+      const { data: set } = await supabase
+        .from("set")
+        .select("id")
+        .eq("name", "polygon");
+
+      const setId = set![0].id;
+
+      console.log(setId);
+    };
+    logId();
+    supabase.from("user").select("*");
     let props: IAppProps[] = [];
     for (let i = 0; i < NUMBER_OF_CARDS; i++) {
       props.push(randomCardPropsChooser());
