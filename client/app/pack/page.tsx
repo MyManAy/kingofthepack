@@ -70,7 +70,7 @@ export default () => {
   }, [pack]);
 
   useEffect(() => {
-    supabase
+    const openedPackChannel = supabase
       .channel("openedPackChannel")
       .on(
         "postgres_changes",
@@ -82,7 +82,7 @@ export default () => {
       .subscribe();
 
     return () => {
-      supabase.removeAllChannels();
+      supabase.removeChannel(openedPackChannel);
     };
   }, [supabase]);
 
