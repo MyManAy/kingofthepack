@@ -34,7 +34,7 @@ export default function App() {
   };
 
   return (
-    <Auth supabaseClient={supabase} appearance={{}} theme="dark" />
+    <Auth supabaseClient={supabase} />
     // <main className="main">
     //   <div className="container">
     //     <section className="wrapper">
