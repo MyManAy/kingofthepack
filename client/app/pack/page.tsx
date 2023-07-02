@@ -55,8 +55,9 @@ export default () => {
       .limit(1)
       .single();
 
-    const cards = openedPack!.circulationCard[0]!
-      .card as unknown as IAppProps[];
+    const cards = openedPack!.circulationCard!.map(
+      (cc) => cc.card!
+    ) as unknown as IAppProps[];
     console.log(cards);
     setPack(cards);
   };
