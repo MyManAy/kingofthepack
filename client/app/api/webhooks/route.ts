@@ -33,15 +33,19 @@ export async function POST(req: Request, res: any) {
   switch (event.type) {
     case "payment_intent.succeeded": {
       const paymentIntent: any = event.data.object;
+      const id = paymentIntent.id;
+      stripe.paymentIntents.retrieve(id, { expand: ["pa"] });
       console.log(
-        `PaymentIntent success: ${JSON.stringify(paymentIntent, null, 4)}`
+        `PaymentIntent success: ${JSON.stringify(paymentIntent.id, null, 4)}`
       );
       break;
     }
     case "checkout.session.completed": {
       const checkoutSession: any = event.data.object;
-      console.log(`Checkout Session: ${checkoutSession}`);
-      break;
+      const id = checkoutSession.id;
+      const smth = (await stripe.checkout.sessions.retrieve(id)).line_items
+        ?.data;
+      console.log(`Checkout Session: ${JSON.stringify(smth, null, 4)}`);
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
