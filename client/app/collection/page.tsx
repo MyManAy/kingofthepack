@@ -14,19 +14,24 @@ export default function App() {
   const name = searchParams.get("name");
 
   const idk = async () => {
-    const { data: cards } = await supabase
+    const { data: set } = await supabase
       .from("set")
       .select(
         `
-    card (
-      *
-    )
+        weighting (
+          rarity,
+          weighting
+        ),
+        card (
+          *
+        )
   `
       )
       .eq("id", setId)
       .single();
 
-    const props = cards!.card;
+    const cards = set!.card;
+    const weightings = set!.weighting;
     console.log(JSON.stringify(cards, null, 4));
 
     const { data: userCardIds } = await supabase
@@ -51,11 +56,18 @@ export default function App() {
     console.log(ids);
 
     let propWithCount: IAppProps[] = [];
-    for (const prop of props) {
+    for (const prop of cards) {
       const count = ids.filter((id) => id === prop.id).length;
       propWithCount.push({ ...prop, count: count });
     }
-    setCardProps(propWithCount);
+    const getWeightingFromRarity = (rarity: string) =>
+      weightings.find((item) => item.rarity === rarity);
+    const sorted = propWithCount.sort(
+      (a, b) =>
+        getWeightingFromRarity(a.rarity)!.weighting -
+        getWeightingFromRarity(b.rarity)!.weighting
+    );
+    setCardProps(sorted);
   };
 
   useEffect(() => {
