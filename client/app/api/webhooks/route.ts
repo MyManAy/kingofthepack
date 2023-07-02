@@ -43,7 +43,9 @@ export async function POST(req: Request, res: any) {
     case "checkout.session.completed": {
       const checkoutSession: any = event.data.object;
       const id = checkoutSession.id;
-      const smth = await stripe.checkout.sessions.retrieve(id);
+      const smth = await stripe.checkout.sessions.retrieve(id, {
+        expand: ["line_items"],
+      });
       console.log(`Checkout Session: ${JSON.stringify(smth, null, 4)}`);
     }
     case "payment_intent.payment_failed": {
