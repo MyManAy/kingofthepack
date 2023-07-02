@@ -16,6 +16,24 @@ export default function weightedRandom(spec: number[]) {
   };
 }
 
+interface Smth {
+  rarity: Rarity;
+  weighting: number;
+}
+
+export const randomRarity = (data: Smth[]): (() => Rarity) => {
+  let rarities: Rarity[] = [];
+  let weightings: number[] = [];
+
+  data.forEach((item) => {
+    rarities.push(item.rarity);
+    weightings.push(item.weighting);
+  });
+
+  const weightedRand = weightedRandom(weightings);
+  return () => rarities[Number(weightedRand())];
+};
+
 const cardProps = cardPropsJson as unknown as IAppProps[];
 
 const rarities: Rarity[] = [
