@@ -73,7 +73,7 @@ export async function POST(req: Request, res: any) {
       const packId = pack?.[0].id;
       console.log(packId);
       const charge: any = event.data.object;
-      console.log(`Charge id: ${charge}`);
+      console.log(`Charge id: ${JSON.stringify(charge, null, 4)}`);
       break;
     }
     default: {
