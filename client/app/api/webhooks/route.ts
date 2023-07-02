@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
 import { supabase } from "@/app/utils/supabase";
+import { randomCardId, randomRarity } from "@/app/utils/weightedRandom";
 
 const originLink = "https://kingofthepack.vercel.app";
 
@@ -31,18 +32,10 @@ export async function POST(req: Request, res: any) {
   console.log("✅ Success:", event.id);
 
   switch (event.type) {
-    // case "payment_intent.succeeded": {
-    //   const paymentIntent: any = event.data.object;
-    //   const id = paymentIntent.id;
-    //   stripe.paymentIntents.retrieve(id, { expand: ["pa"] });
-    //   console.log(
-    //     `PaymentIntent success: ${JSON.stringify(paymentIntent.id, null, 4)}`
-    //   );
-    //   break;
-    // }
     case "checkout.session.completed": {
       const checkoutSession: any = event.data.object;
       const sessionId = checkoutSession.id;
+      const email = checkoutSession.customer_details.email;
       const expandedSession = await stripe.checkout.sessions.retrieve(
         sessionId,
         {
@@ -63,11 +56,8 @@ export async function POST(req: Request, res: any) {
               weighting
             ),
             card (
-              src,
-              animalName,
-              rarity,
-              variation,
-              totalVariations
+              id,
+              rarity
             )
           )
         `
@@ -78,59 +68,38 @@ export async function POST(req: Request, res: any) {
       const { id: packId, totalCards } = pack!;
       const { weighting: weightings, card: cards } = pack!.set!;
 
-      console.log(packId, totalCards);
-      console.log(`${JSON.stringify(weightings, null, 4)}`);
-      console.log(`${JSON.stringify(cards, null, 4)}`);
+      const gen = randomRarity(weightings);
+      let randomIds: number[] = [];
+      for (let i = 0; i < totalCards; i++) {
+        const randomId = randomCardId(cards, gen);
+        randomIds.push(randomId);
+      }
 
-      // const { data: openedPack } = await supabase
-      //   .from("openedPack")
-      //   .insert({ packId: packId!, userEmail: "nithin.monni@gmail.com" })
-      //   .select("id")
-      //   .single();
+      const { data: openedPack } = await supabase
+        .from("openedPack")
+        .insert({ packId: packId, userEmail: email })
+        .select("id")
+        .single();
+      console.log(openedPack);
+
+      const randomCCs = randomIds.map((id) => ({
+        cardId: id,
+        openedPackId: openedPack!.id,
+      }));
+      const { data: circulationCard } = await supabase
+        .from("circulationCard")
+        .insert(randomCCs)
+        .select("*");
+      console.log(circulationCard);
       break;
     }
-    // case "payment_intent.payment_failed": {
-    //   const paymentIntent: any = event.data.object;
-    //   console.log(
-    //     `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
-    //   );
-    //   break;
-    // }
-    // case "charge.succeeded": {
-    // await supabase.from("openedPack").insert({})
-    // const { data: openedPack } = await supabase
-    //         .from("openedPack")
-    //         .select(
-    //           `pack (
-    //         totalCards,
-    //         set (
-    //           weighting (
-    //             rarity,
-    //             weighting
-    //           ),
-    //           card (
-    //             src,
-    //             animalName,
-    //             rarity,
-    //             variation,
-    //             totalVariations
-    //           )
-    //         )
-    //       )`
-    //         )
-    //         .eq("id", payload.new.id)
-    //         .single();
-    //       console.log(openedPack);
-    //   const { data: pack } = await supabase
-    //     .from("pack")
-    //     .select("id")
-    //     .eq("name", "polygon booster pack");
-    //   const packId = pack?.[0].id;
-    //   console.log(packId);
-    //   const charge: any = event.data.object;
-    //   console.log(`Charge id: ${JSON.stringify(charge, null, 4)}`);
-    //   break;
-    // }
+    case "payment_intent.payment_failed": {
+      const paymentIntent: any = event.data.object;
+      console.log(
+        `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
+      );
+      break;
+    }
     default: {
       console.warn(`Unhandled event type: ${event.type}`);
       break;

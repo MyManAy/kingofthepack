@@ -5,7 +5,7 @@ import FlippingCard from "../components/FlippingCard/FlippingCard";
 import "./page.css";
 import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
-import { randomCardPropsChooser, randomRarity } from "../utils/weightedRandom";
+import { randomCardPropsChooser } from "../utils/weightedRandom";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/app/utils/supabase";
 
@@ -42,31 +42,6 @@ export default () => {
       props.push(randomCardPropsChooser());
     }
     setPack(props);
-
-    const gen = randomRarity([
-      { rarity: "Common", weighting: 0.9 },
-      { rarity: "Rare", weighting: 0.1 },
-    ]);
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
-    console.log(gen());
   }, []);
 
   useEffect(() => {

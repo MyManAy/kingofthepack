@@ -16,24 +16,6 @@ export default function weightedRandom(spec: number[]) {
   };
 }
 
-interface Smth {
-  rarity: Rarity;
-  weighting: number;
-}
-
-export const randomRarity = (data: Smth[]): (() => Rarity) => {
-  let rarities: Rarity[] = [];
-  let weightings: number[] = [];
-
-  data.forEach((item) => {
-    rarities.push(item.rarity);
-    weightings.push(item.weighting);
-  });
-
-  const weightedRand = weightedRandom(weightings);
-  return () => rarities[Number(weightedRand())];
-};
-
 const cardProps = cardPropsJson as unknown as IAppProps[];
 
 const rarities: Rarity[] = [
@@ -52,4 +34,33 @@ export const randomCardPropsChooser = () => {
     (item) => item.rarity === chosenRarity
   );
   return cardsOfRarity[Math.floor(Math.random() * cardsOfRarity.length)];
+};
+
+interface Smth {
+  rarity: string;
+  weighting: number;
+}
+
+export const randomRarity = (data: Smth[]): (() => string) => {
+  let rarities: string[] = [];
+  let weightings: number[] = [];
+
+  data.forEach((item) => {
+    rarities.push(item.rarity);
+    weightings.push(item.weighting);
+  });
+
+  const weightedRand = weightedRandom(weightings);
+  return () => rarities[Number(weightedRand())];
+};
+
+interface Card {
+  id: number;
+  rarity: string;
+}
+
+export const randomCardId = (cards: Card[], rarityGen: () => string) => {
+  const rarity = rarityGen();
+  const matchingCards = cards.filter((item) => item.rarity === rarity);
+  return matchingCards[Math.floor(Math.random() * matchingCards.length)].id;
 };
