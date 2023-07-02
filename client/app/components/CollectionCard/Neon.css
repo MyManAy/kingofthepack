@@ -1,0 +1,11 @@
+.neon {
+  color: #3f0719;
+  display: flex;
+  vertical-align: middle;
+  opacity: 0.8;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  justify-content: center;
+  padding-bottom: 0.75rem;
+}

@@ -1,0 +1,38 @@
+.iridescent {
+  background: radial-gradient(
+      at 30% -5%,
+      #7df7f7,
+      #a7a1c0,
+      rgba(255, 255, 255, 0) 25%
+    ),
+    radial-gradient(at 50% 70%, #c4f2e5, rgba(255, 255, 255, 0) 30%),
+    radial-gradient(at 70% 0%, #a7a1c0, rgba(255, 255, 255, 0) 20%),
+    linear-gradient(
+      75deg,
+      #7df7f7 5%,
+      rgba(255, 255, 255, 0),
+      #a8d0f0,
+      rgba(255, 255, 255, 0),
+      #f0b6f8,
+      rgba(255, 255, 255, 0),
+      #a7a1c0,
+      rgba(255, 255, 255, 0),
+      #c4f2e5 90%
+    ),
+    radial-gradient(at 30% 50%, #7df7f7, rgba(255, 255, 255, 0) 30%),
+    radial-gradient(at 30% 50%, #9cb9fc, rgba(255, 255, 255, 0) 30%),
+    radial-gradient(at 100% 50%, #7df7f7, #c2dcf2, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(
+      115deg,
+      #7df7f7 5%,
+      #a8d0f0 10%,
+      #a7a1c0,
+      #f0b6f8 20%,
+      #a8d0f0,
+      #a8d0f0 30%,
+      #a7a1c0,
+      #c2dcf2 40%,
+      #7df7f7,
+      #a8d0f0 70%
+    );
+}
