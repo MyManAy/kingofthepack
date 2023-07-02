@@ -79,7 +79,13 @@ export default () => {
           if (email === "nithin.monni@gmail.com") {
             console.log("yes!!!");
           }
-          supabase.removeAllChannels();
+          supabase
+            .channel("ccChannel")
+            .on(
+              "postgres_changes",
+              { event: "INSERT", schema: "public", table: "circulationCard" },
+              async (payload) => console.log(payload)
+            );
         }
       )
       .subscribe();

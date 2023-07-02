@@ -36,12 +36,12 @@ export const randomCardPropsChooser = () => {
   return cardsOfRarity[Math.floor(Math.random() * cardsOfRarity.length)];
 };
 
-interface Smth {
+interface Weighting {
   rarity: string;
   weighting: number;
 }
 
-export const randomRarity = (data: Smth[]): (() => string) => {
+export const randomRarity = (data: Weighting[]): (() => string) => {
   let rarities: string[] = [];
   let weightings: number[] = [];
 
