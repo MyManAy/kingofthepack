@@ -79,6 +79,7 @@ export default () => {
           if (email === "nithin.monni@gmail.com") {
             console.log("yes!!!");
           }
+          supabase.removeAllChannels();
         }
       )
       .subscribe();

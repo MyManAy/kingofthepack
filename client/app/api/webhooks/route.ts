@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
-import { supabase } from "@/app/utils/supabase";
+// import { supabase } from "@/app/utils/supabase";
 
 const originLink = "https://kingofthepack.vercel.app";
 
@@ -31,65 +31,100 @@ export async function POST(req: Request, res: any) {
   console.log("✅ Success:", event.id);
 
   switch (event.type) {
-    case "payment_intent.succeeded": {
-      const paymentIntent: any = event.data.object;
-      const id = paymentIntent.id;
-      stripe.paymentIntents.retrieve(id, { expand: ["pa"] });
-      console.log(
-        `PaymentIntent success: ${JSON.stringify(paymentIntent.id, null, 4)}`
-      );
-      break;
-    }
+    // case "payment_intent.succeeded": {
+    //   const paymentIntent: any = event.data.object;
+    //   const id = paymentIntent.id;
+    //   stripe.paymentIntents.retrieve(id, { expand: ["pa"] });
+    //   console.log(
+    //     `PaymentIntent success: ${JSON.stringify(paymentIntent.id, null, 4)}`
+    //   );
+    //   break;
+    // }
     case "checkout.session.completed": {
       const checkoutSession: any = event.data.object;
-      const id = checkoutSession.id;
-      const smth = await stripe.checkout.sessions.retrieve(id, {
-        expand: ["line_items"],
-      });
-      console.log(`Checkout Session: ${JSON.stringify(smth, null, 4)}`);
-    }
-    case "payment_intent.payment_failed": {
-      const paymentIntent: any = event.data.object;
-      console.log(
-        `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
+      const sessionId = checkoutSession.id;
+      const expandedSession = await stripe.checkout.sessions.retrieve(
+        sessionId,
+        {
+          expand: ["line_items"],
+        }
       );
-      break;
-    }
-    case "charge.succeeded": {
-      // await supabase.from("openedPack").insert({})
+      const productId =
+        expandedSession.line_items?.data[0].price?.product.toString();
+      // const { data: pack } = await supabase
+      //   .from("pack")
+      //   .select(`id, totalCards,
+      //             set (
+      //               weighting (
+      //                 rarity,
+      //                 weighting
+      //               ),
+      //             card (
+      //               src,
+      //               animalName,
+      //               rarity,
+      //               variation,
+      //               totalVariations
+      //             )
+      //   `)
+      //   .eq("stripeProductId", productId)
+      //   .single();
+      // const {id, setId} = pack!;
       // const { data: openedPack } = await supabase
-      //         .from("openedPack")
-      //         .select(
-      //           `pack (
-      //         totalCards,
-      //         set (
-      //           weighting (
-      //             rarity,
-      //             weighting
-      //           ),
-      //           card (
-      //             src,
-      //             animalName,
-      //             rarity,
-      //             variation,
-      //             totalVariations
-      //           )
-      //         )
-      //       )`
-      //         )
-      //         .eq("id", payload.new.id)
-      //         .single();
-      //       console.log(openedPack);
-      const { data: pack } = await supabase
-        .from("pack")
-        .select("id")
-        .eq("name", "polygon booster pack");
-      const packId = pack?.[0].id;
-      console.log(packId);
-      const charge: any = event.data.object;
-      console.log(`Charge id: ${JSON.stringify(charge, null, 4)}`);
+      //   .from("openedPack")
+      //   .insert({ packId: packId!, userEmail: "nithin.monni@gmail.com" })
+      //   .select("id")
+      //   .single();
+      // const openedPackId = openedPack?.id;
+      // const {data: }
+      // const {data: cards} = await supabase.from("circulationCard").insert([
+      //   {openedPackId: openedPackId!, }
+      // ])
+
       break;
     }
+    // case "payment_intent.payment_failed": {
+    //   const paymentIntent: any = event.data.object;
+    //   console.log(
+    //     `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
+    //   );
+    //   break;
+    // }
+    // case "charge.succeeded": {
+    // await supabase.from("openedPack").insert({})
+    // const { data: openedPack } = await supabase
+    //         .from("openedPack")
+    //         .select(
+    //           `pack (
+    //         totalCards,
+    //         set (
+    //           weighting (
+    //             rarity,
+    //             weighting
+    //           ),
+    //           card (
+    //             src,
+    //             animalName,
+    //             rarity,
+    //             variation,
+    //             totalVariations
+    //           )
+    //         )
+    //       )`
+    //         )
+    //         .eq("id", payload.new.id)
+    //         .single();
+    //       console.log(openedPack);
+    //   const { data: pack } = await supabase
+    //     .from("pack")
+    //     .select("id")
+    //     .eq("name", "polygon booster pack");
+    //   const packId = pack?.[0].id;
+    //   console.log(packId);
+    //   const charge: any = event.data.object;
+    //   console.log(`Charge id: ${JSON.stringify(charge, null, 4)}`);
+    //   break;
+    // }
     default: {
       console.warn(`Unhandled event type: ${event.type}`);
       break;

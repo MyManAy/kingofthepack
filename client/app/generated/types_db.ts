@@ -120,6 +120,7 @@ export interface Database {
           id: number
           name: string
           setId: number
+          stripeProductId: string
           totalCards: number
         }
         Insert: {
@@ -127,6 +128,7 @@ export interface Database {
           id?: number
           name: string
           setId: number
+          stripeProductId: string
           totalCards: number
         }
         Update: {
@@ -134,6 +136,7 @@ export interface Database {
           id?: number
           name?: string
           setId?: number
+          stripeProductId?: string
           totalCards?: number
         }
         Relationships: [
