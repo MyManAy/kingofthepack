@@ -53,12 +53,14 @@ export default function App() {
     let propWithCount: IAppProps[] = [];
     for (const prop of props) {
       const count = ids.filter((id) => id === prop.id).length;
-      propWithCount.push({ ...props, count: count } as any);
+      propWithCount.push({ ...prop, count: count });
     }
     setCardProps(propWithCount);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    idk();
+  }, []);
   return (
     <>
       <div className={"text-white font-bold text-4xl mb-10"}>{name}</div>

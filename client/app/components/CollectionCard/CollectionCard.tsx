@@ -48,8 +48,8 @@ export interface IAppProps {
   rarity: string;
   animalName: string;
   src: string;
-  variation?: number;
-  totalVariations?: number;
+  variation: number | null;
+  totalVariations?: number | null;
   count: number;
 }
 
@@ -93,7 +93,7 @@ export default function App({
       >
         {rarity === "King of the Pack"
           ? rarity
-          : `${rarity} ${variation}/${totalVariations}`}
+          : `${rarity} ${variation ?? 1}/${totalVariations ?? 1}`}
       </div>
     </div>
   );
