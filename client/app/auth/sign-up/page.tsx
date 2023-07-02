@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { supabase } from "../../utils/supabase";
 // import "./page.css";
 import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { ThemeMinimal } from "@supabase/auth-ui-shared";
 
 export default function App() {
   const [email, setEmail] = useState("");
@@ -37,7 +37,7 @@ export default function App() {
   return (
     <Auth
       supabaseClient={supabase}
-      appearance={{ theme: ThemeSupa }}
+      appearance={{ theme: ThemeMinimal }}
       theme="dark"
     />
     // <main className="main">
