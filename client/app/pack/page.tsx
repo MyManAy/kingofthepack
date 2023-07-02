@@ -8,7 +8,6 @@ import { IAppProps } from "../components/TradingCard/TradingCard";
 import { randomCardPropsChooser } from "../utils/weightedRandom";
 
 import { useRouter } from "next/navigation";
-import { supabase } from "../utils/supabase";
 
 export default () => {
   const router = useRouter();
@@ -69,22 +68,22 @@ export default () => {
     if (pack && pack.length === 0) router.push("/");
   }, [pack]);
 
-  useEffect(() => {
-    const openedPackChannel = supabase
-      .channel("openedPackChannel")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "openedPack" },
-        (payload) => {
-          console.log("Change received!", payload);
-        }
-      )
-      .subscribe();
+  // useEffect(() => {
+  //   const openedPackChannel = supabase
+  //     .channel("openedPackChannel")
+  //     .on(
+  //       "postgres_changes",
+  //       { event: "INSERT", schema: "public", table: "openedPack" },
+  //       (payload) => {
+  //         console.log("Change received!", payload);
+  //       }
+  //     )
+  //     .subscribe();
 
-    return () => {
-      supabase.removeChannel(openedPackChannel);
-    };
-  }, [supabase]);
+  //   return () => {
+  //     supabase.removeChannel(openedPackChannel);
+  //   };
+  // }, [supabase]);
 
   return (
     <div className="flex flex-col gap-10 justify-center align-middle">
