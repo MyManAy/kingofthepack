@@ -5,7 +5,6 @@ import FlippingCard from "../components/FlippingCard/FlippingCard";
 import "./page.css";
 import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
-import { randomCardPropsChooser } from "../utils/weightedRandom";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/app/utils/supabase";
 
@@ -15,7 +14,6 @@ export default () => {
   const [hasBeenFlipped, setHasBeenFlipped] = useState(false);
   const [pack, setPack] = useState(null as null | IAppProps[]);
   const [flipped, setFlipped] = useState(false);
-  const NUMBER_OF_CARDS = 10;
 
   const onArrowClick = () => {
     if (arrowVisible) {
@@ -36,12 +34,31 @@ export default () => {
     }
   };
 
+  const getCardProps = async () => {
+    const { data: openedPack } = await supabase
+      .from("openedPack")
+      .select(
+        `
+        card (
+          src,
+          animalName,
+          rarity,
+          variation,
+          totalVariations
+        )
+  `
+      )
+      .eq("userEmail", "nithin.monni@gmail.com")
+      .order("id", { ascending: false })
+      .limit(1)
+      .single();
+
+    const cards = openedPack!.card as unknown as IAppProps[];
+    setPack(cards);
+  };
+
   useEffect(() => {
-    let props: IAppProps[] = [];
-    for (let i = 0; i < NUMBER_OF_CARDS; i++) {
-      props.push(randomCardPropsChooser());
-    }
-    setPack(props);
+    getCardProps();
   }, []);
 
   useEffect(() => {
@@ -68,32 +85,32 @@ export default () => {
     if (pack && pack.length === 0) router.push("/");
   }, [pack]);
 
-  useEffect(() => {
-    const openedPackChannel = supabase
-      .channel("openedPackChannel")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "openedPack" },
-        async (payload) => {
-          const email = payload.new.userEmail;
-          if (email === "nithin.monni@gmail.com") {
-            console.log("yes!!!");
-          }
-          supabase
-            .channel("ccChannel")
-            .on(
-              "postgres_changes",
-              { event: "INSERT", schema: "public", table: "circulationCard" },
-              async (payload) => console.log(payload)
-            );
-        }
-      )
-      .subscribe();
+  // useEffect(() => {
+  //   const openedPackChannel = supabase
+  //     .channel("openedPackChannel")
+  //     .on(
+  //       "postgres_changes",
+  //       { event: "INSERT", schema: "public", table: "openedPack" },
+  //       async (payload) => {
+  //         const email = payload.new.userEmail;
+  //         if (email === "nithin.monni@gmail.com") {
+  //           console.log("yes!!!");
+  //         }
+  //         supabase
+  //           .channel("ccChannel")
+  //           .on(
+  //             "postgres_changes",
+  //             { event: "INSERT", schema: "public", table: "circulationCard" },
+  //             async (payload) => console.log(payload)
+  //           );
+  //       }
+  //     )
+  //     .subscribe();
 
-    return () => {
-      supabase.removeChannel(openedPackChannel);
-    };
-  }, [supabase]);
+  //   return () => {
+  //     supabase.removeChannel(openedPackChannel);
+  //   };
+  // }, [supabase]);
 
   return (
     <div className="flex flex-col gap-10 justify-center align-middle">

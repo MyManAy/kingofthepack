@@ -57,16 +57,16 @@ export interface IAppProps {
   rarity: Rarity;
   animalName: string;
   src: string;
-  variation?: number;
-  totalVariations?: number;
+  variation: number | null;
+  totalVariations: number | null;
 }
 
 export default function App({
   rarity,
   animalName,
   src,
-  variation = 1,
-  totalVariations = 1,
+  variation,
+  totalVariations,
 }: IAppProps) {
   return (
     <div className={`h-[65vh] w-[calc(65vh/1.5)] flex cursor-pointer`}>
@@ -92,7 +92,7 @@ export default function App({
         >
           {rarity === "King of the Pack"
             ? rarity
-            : `${rarity} ${variation}/${totalVariations}`}
+            : `${rarity} ${variation ?? 1}/${totalVariations ?? 1}`}
         </div>
       </div>
     </div>
