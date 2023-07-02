@@ -90,33 +90,6 @@ export default () => {
     if (pack && pack.length === 0) router.push("/");
   }, [pack]);
 
-  // useEffect(() => {
-  //   const openedPackChannel = supabase
-  //     .channel("openedPackChannel")
-  //     .on(
-  //       "postgres_changes",
-  //       { event: "INSERT", schema: "public", table: "openedPack" },
-  //       async (payload) => {
-  //         const email = payload.new.userEmail;
-  //         if (email === "nithin.monni@gmail.com") {
-  //           console.log("yes!!!");
-  //         }
-  //         supabase
-  //           .channel("ccChannel")
-  //           .on(
-  //             "postgres_changes",
-  //             { event: "INSERT", schema: "public", table: "circulationCard" },
-  //             async (payload) => console.log(payload)
-  //           );
-  //       }
-  //     )
-  //     .subscribe();
-
-  //   return () => {
-  //     supabase.removeChannel(openedPackChannel);
-  //   };
-  // }, [supabase]);
-
   return (
     <div className="flex flex-col gap-10 justify-center align-middle">
       <div className="text-white flex absolute left-3 pt-1 justify-center align-middle text-5xl font-bold">

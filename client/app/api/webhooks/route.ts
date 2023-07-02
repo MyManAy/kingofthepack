@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 import { supabase } from "@/app/utils/supabase";
 import { randomCardId, randomRarity } from "@/app/utils/weightedRandom";
 
-const originLink = "https://kingofthepack.vercel.app";
-
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
 

@@ -1,7 +1,4 @@
 import fs from "fs";
-// import { firestore } from "./firebase.js";
-// import { collection, addDoc } from "firebase/firestore";
-// import props from "./cardPropsFromImages.json" assert { type: "json" };
 
 // FOR UPDATING THE JSON CONTAINING CARD PROP DATA
 const obj = fs
@@ -17,12 +14,3 @@ const obj = fs
   }));
 const json = JSON.stringify(obj);
 fs.writeFileSync("cardPropsFromImages.json", json, "utf8");
-
-// DO NOT EXECUTE THE BELOW CODE IF "cards" COLLECTION ALREADY HAS THE CARDS
-// const cardsCollection = collection(firestore, "setCards");
-// const add = async () => {
-//   props.forEach((item) => {
-//     addDoc(cardsCollection, item);
-//   });
-// };
-// add();
