@@ -33,7 +33,9 @@ export async function POST(req: Request, res: any) {
   switch (event.type) {
     case "payment_intent.succeeded": {
       const paymentIntent: any = event.data.object;
-      console.log(`PaymentIntent status: ${paymentIntent.status}`);
+      console.log(
+        `PaymentIntent success: ${JSON.stringify(paymentIntent, null, 4)}`
+      );
     }
     case "payment_intent.payment_failed": {
       const paymentIntent: any = event.data.object;
@@ -43,6 +45,7 @@ export async function POST(req: Request, res: any) {
       break;
     }
     case "charge.succeeded": {
+      // await supabase.from("openedPack").insert({})
       // const { data: openedPack } = await supabase
       //         .from("openedPack")
       //         .select(
