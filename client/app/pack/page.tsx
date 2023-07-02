@@ -39,6 +39,7 @@ export default () => {
       .from("openedPack")
       .select(
         `
+      circulationCard (
         card (
           src,
           animalName,
@@ -46,6 +47,7 @@ export default () => {
           variation,
           totalVariations
         )
+      )
   `
       )
       .eq("userEmail", "nithin.monni@gmail.com")
@@ -53,7 +55,8 @@ export default () => {
       .limit(1)
       .single();
 
-    const cards = openedPack!.card as unknown as IAppProps[];
+    const cards = openedPack!.circulationCard[0]!
+      .card as unknown as IAppProps[];
     setPack(cards);
   };
 
