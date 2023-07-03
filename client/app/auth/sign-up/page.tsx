@@ -18,7 +18,7 @@ export default function App() {
     });
 
     console.log(data.user?.email);
-    console.log(error);
+    window.alert(error);
   };
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
