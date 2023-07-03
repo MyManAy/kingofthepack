@@ -58,10 +58,10 @@ export default function App() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (username.length === 0 || email.length === 0 || password.length || 0)
-      return window.alert("Please fill in all fields");
-    if (await userExists())
-      return window.alert(`User with email: "${email}" already exists`);
-    signUp();
+      window.alert("Please fill in all fields");
+    else if (await userExists())
+      window.alert(`User with email: "${email}" already exists`);
+    else signUp();
   };
 
   return (
