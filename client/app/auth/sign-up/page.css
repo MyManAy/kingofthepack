@@ -237,4 +237,5 @@ img {
 }
 .main .wrapper .method-action:hover {
   background: var(--color-white);
+  color: var(--color-black);
 }

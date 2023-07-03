@@ -1,10 +1,17 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from "react";
 import { supabase } from "../../utils/supabase";
 import "./page.css";
 
 export default function App() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,6 +21,9 @@ export default function App() {
       password,
       options: {
         emailRedirectTo: `${location.origin}`,
+        data: {
+          username,
+        },
       },
     });
 
@@ -21,16 +31,16 @@ export default function App() {
     window.alert(error);
   };
 
-  const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
+  const handleField =
+    (setter: Dispatch<SetStateAction<any>>) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setter(event.target.value);
+    };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (username.length === 0 || email.length === 0 || password.length || 0)
+      window.alert("Please fill in all fields");
 
     signUp(email, password);
   };
@@ -52,6 +62,20 @@ export default function App() {
           </div>
           <form name="signin" className="form" onSubmit={handleSubmit}>
             <div className="input-control">
+              <label htmlFor="username" className="input-label" hidden>
+                Username
+              </label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                className="input-field"
+                placeholder="Username"
+                value={username}
+                onChange={handleField(setUsername)}
+              />
+            </div>
+            <div className="input-control">
               <label htmlFor="email" className="input-label" hidden>
                 Email Address
               </label>
@@ -62,7 +86,7 @@ export default function App() {
                 className="input-field"
                 placeholder="Email Address"
                 value={email}
-                onChange={handleEmail}
+                onChange={handleField(setEmail)}
               />
             </div>
             <div className="input-control">
@@ -76,7 +100,7 @@ export default function App() {
                 className="input-field"
                 placeholder="Password"
                 value={password}
-                onChange={handlePassword}
+                onChange={handleField(setPassword)}
               />
             </div>
             <div className="input-control">
