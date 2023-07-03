@@ -15,7 +15,7 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signUp = async () => {
+  const signUp = async (username: string, email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -46,7 +46,7 @@ export default function App() {
       setter(event.target.value);
     };
 
-  const userExists = async () => {
+  const userExists = async (email: string) => {
     const { count } = (await supabase
       .from("user")
       .select("*", { count: "exact", head: true })
@@ -55,14 +55,16 @@ export default function App() {
     return count > 0;
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (username.length === 0 || email.length === 0 || password.length || 0)
-      window.alert("Please fill in all fields");
-    else if (await userExists())
-      window.alert(`User with email: "${email}" already exists`);
-    else signUp();
-  };
+  const handleSubmit =
+    (username: string, email: string, password: string) =>
+    async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (username.length === 0 || email.length === 0 || password.length || 0)
+        window.alert("Please fill in all fields");
+      else if (await userExists(email))
+        window.alert(`User with email: "${email}" already exists`);
+      else signUp(username, email, password);
+    };
 
   return (
     <main className="main">
@@ -79,7 +81,11 @@ export default function App() {
               </span>
             </p>
           </div>
-          <form name="signin" className="form" onSubmit={handleSubmit}>
+          <form
+            name="signin"
+            className="form"
+            onSubmit={handleSubmit(username, email, password)}
+          >
             <div className="input-control">
               <label htmlFor="username" className="input-label" hidden>
                 Username
