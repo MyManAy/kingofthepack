@@ -4,6 +4,7 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import MagicCard from "./components/MagicCard/MagicCard";
 import StripeCheckout from "./components/StripeCheckout";
+import ProtectedLayout from "./components/ProtectedLayout";
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -22,9 +23,11 @@ export default () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-10 justify-center align-middle">
-      <MagicCard />
-      <StripeCheckout />
-    </div>
+    <ProtectedLayout>
+      <div className="flex flex-col gap-10 justify-center align-middle">
+        <MagicCard />
+        <StripeCheckout />
+      </div>
+    </ProtectedLayout>
   );
 };

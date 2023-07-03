@@ -12,7 +12,7 @@ export default function App() {
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/api/auth/callback`,
+        emailRedirectTo: `${location.origin}`,
       },
     });
 
