@@ -2,6 +2,7 @@
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { supabase } from "../../utils/supabase";
+import "./page.css";
 
 export default function App() {
   const [email, setEmail] = useState("");
