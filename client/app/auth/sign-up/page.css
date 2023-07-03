@@ -1,11 +1,11 @@
 :root {
   --color-white: #ffffff;
-  --color-light: #f1f5f9;
+  --color-light: #212534;
   --color-black: #121212;
   --color-night: #001632;
   --color-red: #f44336;
   --color-blue: #1a73e8;
-  --color-gray: #80868b;
+  --color-gray: #487192;
   --color-grayish: #dadce0;
   --shadow-normal: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -41,7 +41,7 @@ body {
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;
-  color: var(--color-black);
+  color: var(--color-white);
   background: var(--color-light);
 }
 
@@ -80,7 +80,7 @@ img {
   font-size: 1.65rem;
   line-height: inherit;
   margin-right: 0.5rem;
-  color: var(--color-black);
+  color: var(--color-white);
 }
 .ion-logo-google {
   font-size: 1.65rem;
@@ -101,20 +101,21 @@ img {
   text-transform: unset;
   text-rendering: optimizeLegibility;
 }
+
 .text-large {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--color-black);
+  color: var(--color-white);
 }
 .text-normal {
   font-size: 1rem;
   font-weight: 400;
-  color: var(--color-black);
+  color: var(--color-white);
 }
 .text-links {
   font-size: 1rem;
   font-weight: 400;
-  color: var(--color-blue);
+  color: #dadce0;
 }
 .text-links:hover {
   text-decoration: underline;
@@ -128,10 +129,20 @@ img {
   border: none;
   outline: none;
   border-radius: 0.25rem;
-  color: var(--color-black);
-  background: var(--color-white);
+  color: var(--color-white);
   box-shadow: var(--shadow-large);
 }
+
+.coolGradient {
+  background-color: #5ddcff;
+  background-image: linear-gradient(
+    62deg,
+    #5ddcff 0%,
+    #3c67e3 50%,
+    #4e00c2 100%
+  );
+}
+
 .main .wrapper .form {
   width: 100%;
   height: auto;
@@ -155,7 +166,8 @@ img {
   outline: none;
   border-radius: 2rem;
   color: var(--color-black);
-  background: var(--color-light);
+  background: rgb(220, 244, 255);
+  /*#d0f3fd*/
   text-transform: unset;
   text-rendering: optimizeLegibility;
 }
@@ -172,7 +184,7 @@ img {
   outline: none;
   border-radius: 2rem;
   color: var(--color-white);
-  background: var(--color-blue);
+  background: #55d662;
   box-shadow: var(--shadow-medium);
   text-transform: capitalize;
   text-rendering: optimizeLegibility;
@@ -197,7 +209,7 @@ img {
   font-size: 1rem;
   font-weight: 500;
   line-height: inherit;
-  color: var(--color-black);
+  color: var(--color-white);
   margin: 0 1rem;
 }
 .main .wrapper .method-control {
@@ -213,16 +225,16 @@ img {
   align-items: center;
   width: 100%;
   height: auto;
-  padding: 0.35rem 1.25rem;
+  padding: 0.65rem 1.25rem;
   outline: none;
-  border: 2px solid var(--color-grayish);
   border-radius: 2rem;
-  color: var(--color-black);
-  background: var(--color-white);
+  color: var(--color-white);
+  background: #d34a40;
+  box-shadow: var(--shadow-medium);
   text-transform: capitalize;
   text-rendering: optimizeLegibility;
   transition: all 0.35s ease;
 }
 .main .wrapper .method-action:hover {
-  background: var(--color-light);
+  background: var(--color-white);
 }

@@ -37,7 +37,7 @@ export default function App() {
   return (
     <main className="main">
       <div className="container">
-        <section className="wrapper">
+        <section className="wrapper coolGradient">
           <div className="heading">
             <h1 className="text text-large">Sign In</h1>
             <p className="text text-normal">
