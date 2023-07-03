@@ -15,7 +15,7 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async () => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -27,7 +27,16 @@ export default function App() {
       },
     });
 
-    console.log(data.user?.email);
+    window.alert(error);
+
+    console.log(data.user?.identities?.length);
+  };
+
+  const signUpWithGoogle = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    console.log(data);
     window.alert(error);
   };
 
@@ -37,12 +46,22 @@ export default function App() {
       setter(event.target.value);
     };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const userExists = async () => {
+    const { count } = (await supabase
+      .from("user")
+      .select("*", { count: "exact", head: true })
+      .eq("email", email)) as any;
+    console.log(count);
+    return count > 0;
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (username.length === 0 || email.length === 0 || password.length || 0)
-      window.alert("Please fill in all fields");
-
-    signUp(email, password);
+      return window.alert("Please fill in all fields");
+    if (await userExists())
+      return window.alert(`User with email: "${email}" already exists`);
+    signUp();
   };
 
   return (
@@ -50,9 +69,9 @@ export default function App() {
       <div className="container">
         <section className="wrapper coolGradient">
           <div className="heading">
-            <h1 className="text text-large">Sign In</h1>
+            <h1 className="text text-large">Sign Up</h1>
             <p className="text text-normal">
-              New user?
+              New user?{" "}
               <span>
                 <a href="#" className="text text-links">
                   Create an account
@@ -104,9 +123,7 @@ export default function App() {
               />
             </div>
             <div className="input-control">
-              <a href="#" className="text text-links">
-                Forgot Password
-              </a>
+              <a className="text text-links">Forgot Password</a>
               <input
                 type="submit"
                 name="submit"
@@ -122,7 +139,7 @@ export default function App() {
           </div>
           <div className="method">
             <div className="method-control">
-              <a href="#" className="method-action">
+              <a className="method-action" onClick={signUpWithGoogle}>
                 <span>Sign in with Google</span>
               </a>
             </div>
