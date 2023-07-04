@@ -47,12 +47,12 @@ export default function App() {
     };
 
   const userExists = async (email: string) => {
-    const { count } = (await supabase
+    const data = (await supabase
       .from("user")
       .select("*", { count: "exact", head: true })
       .eq("email", email)) as any;
-    console.log(count);
-    return count > 0;
+    console.log(data);
+    // return count > 0;
   };
 
   const handleSubmit =
