@@ -52,7 +52,7 @@ export default function App() {
       .select("*", { count: "exact", head: true })
       .eq("email", email)) as any;
     console.log(data);
-    // return count > 0;
+    return false;
   };
 
   const handleSubmit =
