@@ -9,6 +9,7 @@ import {
 } from "react";
 import { supabase } from "../../utils/supabase";
 import "./page.css";
+import emailMinify from "@/app/utils/minifyEmail";
 
 export default function App() {
   const [username, setUsername] = useState("");
@@ -48,7 +49,7 @@ export default function App() {
     const { count } = (await supabase
       .from("user")
       .select("*", { count: "exact", head: true })
-      .eq("email", email.trim())) as any;
+      .eq("email", emailMinify(email))) as any;
     return count > 0;
   };
 
