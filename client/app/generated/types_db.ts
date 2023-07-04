@@ -169,23 +169,30 @@ export interface Database {
       user: {
         Row: {
           created_at: string | null
-          gmail: string
+          email: string
           id: string
-          name: string
+          username: string
         }
         Insert: {
           created_at?: string | null
-          gmail: string
+          email: string
           id: string
-          name: string
+          username: string
         }
         Update: {
           created_at?: string | null
-          gmail?: string
+          email?: string
           id?: string
-          name?: string
+          username?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "user_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       weighting: {
         Row: {
