@@ -45,6 +45,7 @@ export default function App() {
     };
 
   const userExists = async (email: string) => {
+    console.log(email);
     const data = (await supabase
       .from("user")
       .select("*", { count: "exact", head: true })
@@ -56,7 +57,7 @@ export default function App() {
     console.log(data);
     console.log(data2);
     //idk why but count gives "1" is user does not exist and "0" if it does;
-    return false;
+    return true;
   };
 
   const handleSubmit =
