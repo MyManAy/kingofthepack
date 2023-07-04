@@ -6,7 +6,6 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
-import ProtectedLayout from "../components/ProtectedLayout";
 import emailMinify from "../utils/minifyEmail";
 
 export default function App() {
@@ -88,7 +87,7 @@ export default function App() {
   }, [email]);
 
   return (
-    <ProtectedLayout>
+    <>
       <div className={"text-white font-bold text-4xl mb-10"}>{name}</div>
       <div className={"flex flex-row flex-wrap justify-center"}>
         {cardProps &&
@@ -98,6 +97,6 @@ export default function App() {
             </div>
           ))}
       </div>
-    </ProtectedLayout>
+    </>
   );
 }
