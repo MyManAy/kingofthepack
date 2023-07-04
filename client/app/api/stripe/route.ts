@@ -41,8 +41,7 @@ export async function POST(req: Request, res: any) {
           expand: ["line_items"],
         }
       );
-      const productId =
-        expandedSession.line_items?.data[0].price?.product.toString();
+      const priceId = expandedSession.line_items?.data[0].price?.id;
       const { data: pack } = await supabase
         .from("pack")
         .select(
@@ -61,7 +60,7 @@ export async function POST(req: Request, res: any) {
           )
         `
         )
-        .eq("stripeProductId", productId)
+        .eq("stripePriceId", priceId)
         .single();
 
       const { id: packId, totalCards } = pack!;
