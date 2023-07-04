@@ -58,7 +58,7 @@ export default function App() {
       .from("user")
       .select("*")
       .eq("email", email.trim())) as any;
-    const data4 = (await supabase.from("user").select("*")) as any;
+    const data4 = (await supabase.from("user").select()) as any;
     console.log(data);
     console.log(data2);
     console.log(data3);
