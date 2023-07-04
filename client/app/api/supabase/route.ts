@@ -10,10 +10,10 @@ export async function POST(req: Request, res: any) {
   const username = raw_user_meta_data.name ?? raw_user_meta_data.username;
   console.log(email, username, id);
   if (email_confirmed_at) {
-    const { data, error } = supabase
+    const { data, error } = (await supabase
       .from("user")
       .insert({ email: emailMinify(email), username, id })
-      .select() as any;
+      .select()) as any;
     console.log(JSON.stringify(data, null, 4));
     console.log(JSON.stringify(error, null, 4));
   }
