@@ -3,6 +3,7 @@ import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
 import { supabase } from "@/app/utils/supabase";
 import { randomCardId, randomRarity } from "@/app/utils/weightedRandom";
+import emailMinify from "@/app/utils/minifyEmail";
 
 const stripe: Stripe = new (Stripe as any)(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
@@ -73,22 +74,22 @@ export async function POST(req: Request, res: any) {
         randomIds.push(randomId);
       }
 
-      // const { data: openedPack } = await supabase
-      //   .from("openedPack")
-      //   .insert({ packId: packId, userId: email })
-      //   .select("id")
-      //   .single();
-      // console.log(openedPack);
+      const { data: openedPack } = await supabase
+        .from("openedPack")
+        .insert({ packId: packId, userEmail: emailMinify(email) })
+        .select("id")
+        .single();
+      console.log(openedPack);
 
-      // const randomCCs = randomIds.map((id) => ({
-      //   cardId: id,
-      //   openedPackId: openedPack!.id,
-      // }));
-      // const { data: circulationCard } = await supabase
-      //   .from("circulationCard")
-      //   .insert(randomCCs)
-      //   .select("*");
-      // console.log(circulationCard);
+      const randomCCs = randomIds.map((id) => ({
+        cardId: id,
+        openedPackId: openedPack!.id,
+      }));
+      const { data: circulationCard } = await supabase
+        .from("circulationCard")
+        .insert(randomCCs)
+        .select("*");
+      console.log(circulationCard);
       break;
     }
     case "payment_intent.payment_failed": {
