@@ -50,7 +50,7 @@ export default function App() {
       )
    `
       )
-      .eq("email", "nithin.monni@gmail.com")
+      .eq("email", email)
       .single();
 
     const ids = userCardIds!.openedPack.flatMap((op) =>
