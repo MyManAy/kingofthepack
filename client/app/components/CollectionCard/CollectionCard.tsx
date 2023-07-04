@@ -40,8 +40,8 @@ const rarityStyleMapping: RarityStyleMapping = {
 };
 
 const containers = [
-  "h-[45vh] w-[calc(45vh/1.5)] grid grid-cols-[1fr_5fr_1fr] grid-rows-[1fr_4fr_1fr] rounded-md overcursor-pointer opacity-10 -z-10",
-  "h-[45vh] w-[calc(45vh/1.5)] grid grid-cols-[1fr_5fr_1fr] grid-rows-[1fr_4fr_1fr] rounded-md cursor-pointer -z-10",
+  "h-[292.047px] w-[194.688px] grid grid-cols-[1fr_5fr_1fr] grid-rows-[1fr_4fr_1fr] rounded-md overcursor-pointer opacity-10 -z-10",
+  "h-[292.047px] w-[194.688px] grid grid-cols-[1fr_5fr_1fr] grid-rows-[1fr_4fr_1fr] rounded-md cursor-pointer -z-10",
 ];
 
 export interface IAppProps {
