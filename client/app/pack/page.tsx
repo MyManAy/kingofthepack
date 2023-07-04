@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/app/utils/supabase";
+import emailMinify from "../utils/minifyEmail";
+import ProtectedLayout from "../components/ProtectedLayout";
 
 export default () => {
   const router = useRouter();
@@ -14,6 +16,7 @@ export default () => {
   const [hasBeenFlipped, setHasBeenFlipped] = useState(false);
   const [pack, setPack] = useState(null as null | IAppProps[]);
   const [flipped, setFlipped] = useState(false);
+  const [email, setEmail] = useState(null as null | string);
 
   const onArrowClick = () => {
     if (arrowVisible) {
@@ -50,7 +53,7 @@ export default () => {
       )
   `
       )
-      .eq("userEmail", "nithin.monni@gmail.com")
+      .eq("userEmail", email)
       .order("id", { ascending: false })
       .limit(1)
       .single();
@@ -62,9 +65,19 @@ export default () => {
     setPack(cards);
   };
 
+  const getMinifiedEmail = async () => {
+    const { data } = await supabase.auth.getUser();
+    const userEmail = data.user?.email!;
+    setEmail(emailMinify(userEmail));
+  };
+
   useEffect(() => {
-    getCardProps();
+    getMinifiedEmail();
   }, []);
+
+  useEffect(() => {
+    if (email) getCardProps();
+  }, [email]);
 
   useEffect(() => {
     if (!arrowVisible && hasBeenFlipped) {
@@ -91,44 +104,46 @@ export default () => {
   }, [pack]);
 
   return (
-    <div className="flex flex-col gap-10 justify-center align-middle">
-      <div className="text-white flex absolute left-3 pt-1 justify-center align-middle text-5xl font-bold">
-        {pack && pack.length}
-      </div>
-      <ArrowLeft
-        fontSize="large"
-        className={arrowVisible ? "fadein" : "fadeout"}
-        style={{
-          color: "white",
-          position: "absolute",
-          top: "47.5%",
-          left: "400px",
-          cursor: "pointer",
-        }}
-        onClick={onArrowClick}
-        onKeyDown={(event) => {
-          if (event.code === "ArrowLeft") {
-            onArrowClick();
-          }
-        }}
-      />
-      {pack && pack.length > 0 && (
-        <div
-          className={!arrowVisible && hasBeenFlipped ? "disappear" : "appear"}
-          onClick={onCardClick}
+    <ProtectedLayout>
+      <div className="flex flex-col gap-10 justify-center align-middle">
+        <div className="text-white flex absolute left-3 pt-1 justify-center align-middle text-5xl font-bold">
+          {pack && pack.length}
+        </div>
+        <ArrowLeft
+          fontSize="large"
+          className={arrowVisible ? "fadein" : "fadeout"}
+          style={{
+            color: "white",
+            position: "absolute",
+            top: "47.5%",
+            left: "400px",
+            cursor: "pointer",
+          }}
+          onClick={onArrowClick}
           onKeyDown={(event) => {
-            if (event.code === "Space") {
-              onCardClick();
+            if (event.code === "ArrowLeft") {
+              onArrowClick();
             }
           }}
-        >
-          <FlippingCard
-            props={pack[0]}
-            flipped={flipped}
-            transition={arrowVisible}
-          />
-        </div>
-      )}
-    </div>
+        />
+        {pack && pack.length > 0 && (
+          <div
+            className={!arrowVisible && hasBeenFlipped ? "disappear" : "appear"}
+            onClick={onCardClick}
+            onKeyDown={(event) => {
+              if (event.code === "Space") {
+                onCardClick();
+              }
+            }}
+          >
+            <FlippingCard
+              props={pack[0]}
+              flipped={flipped}
+              transition={arrowVisible}
+            />
+          </div>
+        )}
+      </div>
+    </ProtectedLayout>
   );
 };
