@@ -54,6 +54,10 @@ export default function App() {
       .from("user")
       .select("*", { count: "exact" })
       .eq("email", email)) as any;
+    const data3 = (await supabase
+      .from("user")
+      .select("*")
+      .eq("email", email)) as any;
     console.log(data);
     console.log(data2);
     //idk why but count gives "1" is user does not exist and "0" if it does;
