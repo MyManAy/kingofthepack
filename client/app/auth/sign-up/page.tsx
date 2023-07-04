@@ -47,10 +47,8 @@ export default function App() {
     };
 
   const userExists = async (email: string) => {
-    const data = (await supabase
-      .from("user")
-      .select("*")
-      .eq("email", email)) as any;
+    const data = (await supabase.from("user").select("*")) as any;
+    //.eq("email", email)
     console.log(data);
     return false;
   };
