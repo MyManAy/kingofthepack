@@ -10,10 +10,12 @@ export async function POST(req: Request, res: any) {
   const username = raw_user_meta_data.name ?? raw_user_meta_data.username;
   console.log(email, username, id);
   if (email_confirmed_at) {
-    const smth = supabase
+    const { data, error } = supabase
       .from("user")
-      .insert({ email: emailMinify(email), username, id });
-    console.log(JSON.stringify(smth, null, 4));
+      .insert({ email: emailMinify(email), username, id })
+      .select() as any;
+    console.log(JSON.stringify(data, null, 4));
+    console.log(JSON.stringify(error, null, 4));
   }
 
   return NextResponse.json({
