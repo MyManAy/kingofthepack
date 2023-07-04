@@ -8,7 +8,7 @@ export default function App() {
   return (
     <ProtectedLayout>
       <div className={"text-white font-bold text-4xl mb-10"}>
-        Polygon Collection
+        Your Collections
       </div>
       <div className={"flex flex-row flex-wrap justify-center"}>
         <div className={"p-5"}>
