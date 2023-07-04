@@ -74,6 +74,8 @@ export async function POST(req: Request, res: any) {
         randomIds.push(randomId);
       }
 
+      console.log(email);
+      console.log(emailMinify(email));
       const { data: openedPack } = await supabase
         .from("openedPack")
         .insert({ packId: packId, userEmail: emailMinify(email) })
