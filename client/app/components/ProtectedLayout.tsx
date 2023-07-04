@@ -22,5 +22,5 @@ export default function ProtectedLayout({
     };
     setAuthState();
   }, []);
-  return isAuthenticated && children;
+  return isAuthenticated && <>{children}</>;
 }
