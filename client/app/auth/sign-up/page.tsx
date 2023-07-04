@@ -28,8 +28,6 @@ export default function App() {
     });
 
     window.alert(error);
-
-    console.log(data.user?.identities?.length);
   };
 
   const signUpWithGoogle = async () => {
@@ -47,12 +45,18 @@ export default function App() {
     };
 
   const userExists = async (email: string) => {
-    const { count } = (await supabase
+    const data = (await supabase
       .from("user")
       .select("*", { count: "exact", head: true })
       .eq("email", email)) as any;
+    const data2 = (await supabase
+      .from("user")
+      .select("*", { count: "exact" })
+      .eq("email", email)) as any;
+    console.log(data);
+    console.log(data2);
     //idk why but count gives "1" is user does not exist and "0" if it does;
-    return count === 0;
+    return false;
   };
 
   const handleSubmit =
