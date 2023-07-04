@@ -6,14 +6,17 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
+import ProtectedLayout from "../components/ProtectedLayout";
+import emailMinify from "../utils/minifyEmail";
 
 export default function App() {
   const searchParams = useSearchParams();
-  const [cardProps, setCardProps] = useState(null as null | IAppProps[]);
   const setId = searchParams.get("setId");
   const name = searchParams.get("name");
+  const [cardProps, setCardProps] = useState(null as null | IAppProps[]);
+  const [email, setEmail] = useState(null as null | string);
 
-  const idk = async () => {
+  const getCardProps = async () => {
     const { data: set } = await supabase
       .from("set")
       .select(
@@ -70,11 +73,22 @@ export default function App() {
     setCardProps(sorted);
   };
 
+  const getMinifiedEmail = async () => {
+    const { data } = await supabase.auth.getUser();
+    const userEmail = data.user?.email!;
+    setEmail(emailMinify(userEmail));
+  };
+
   useEffect(() => {
-    idk();
+    getMinifiedEmail();
   }, []);
+
+  useEffect(() => {
+    if (email) getCardProps();
+  }, [email]);
+
   return (
-    <>
+    <ProtectedLayout>
       <div className={"text-white font-bold text-4xl mb-10"}>{name}</div>
       <div className={"flex flex-row flex-wrap justify-center"}>
         {cardProps &&
@@ -84,6 +98,6 @@ export default function App() {
             </div>
           ))}
       </div>
-    </>
+    </ProtectedLayout>
   );
 }
