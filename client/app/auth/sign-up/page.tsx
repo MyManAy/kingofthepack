@@ -60,6 +60,7 @@ export default function App() {
       .eq("email", email)) as any;
     console.log(data);
     console.log(data2);
+    console.log(data3);
     //idk why but count gives "1" is user does not exist and "0" if it does;
     return true;
   };
