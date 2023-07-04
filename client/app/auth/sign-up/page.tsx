@@ -59,6 +59,7 @@ export default function App() {
     (username: string, email: string, password: string) =>
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      console.log(username, email, password);
       if (username.length === 0 || email.length === 0 || password.length || 0)
         window.alert("Please fill in all fields");
       else if (await userExists(email))
