@@ -52,6 +52,7 @@ export default function App() {
       .select("*", { count: "exact", head: true })
       .eq("email", email)) as any;
     console.log(count);
+    console.log(count > 0);
     return count > 0;
   };
 
