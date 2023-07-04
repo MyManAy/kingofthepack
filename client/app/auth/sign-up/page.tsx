@@ -28,7 +28,7 @@ export default function App() {
       },
     });
 
-    window.alert(error);
+    if (error) window.alert(error);
   };
 
   const signUpWithGoogle = async () => {
@@ -36,7 +36,7 @@ export default function App() {
       provider: "google",
     });
     console.log(data);
-    window.alert(error);
+    if (error) window.alert(error);
   };
 
   const handleField =
