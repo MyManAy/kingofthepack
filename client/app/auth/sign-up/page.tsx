@@ -47,11 +47,12 @@ export default function App() {
     };
 
   const userExists = async (email: string) => {
-    console.log(email);
-    const data = (await supabase.from("user").select("*")) as any;
-    //.eq("email", email)
-    console.log(data);
-    return false;
+    const { count } = (await supabase
+      .from("user")
+      .select("*", { count: "exact", head: true })
+      .eq("email", email)) as any;
+    console.log(count);
+    return count > 0;
   };
 
   const handleSubmit =
@@ -59,7 +60,7 @@ export default function App() {
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       console.log(username, email, password);
-      if (username.length === 0 || email.length === 0 || password.length || 0)
+      if (username.length === 0 || email.length === 0 || password.length === 0)
         window.alert("Please fill in all fields");
       else if (await userExists(email))
         window.alert(`User with email: "${email}" already exists`);
