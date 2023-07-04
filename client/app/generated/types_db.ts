@@ -85,19 +85,19 @@ export interface Database {
           created_at: string | null
           id: number
           packId: number
-          userEmail: string
+          userId: string
         }
         Insert: {
           created_at?: string | null
           id?: number
           packId: number
-          userEmail: string
+          userId: string
         }
         Update: {
           created_at?: string | null
           id?: number
           packId?: number
-          userEmail?: string
+          userId?: string
         }
         Relationships: [
           {
@@ -107,10 +107,10 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "openedPack_userEmail_fkey"
-            columns: ["userEmail"]
-            referencedRelation: "user"
-            referencedColumns: ["email"]
+            foreignKeyName: "openedPack_userId_fkey"
+            columns: ["userId"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           }
         ]
       }
@@ -169,17 +169,20 @@ export interface Database {
       user: {
         Row: {
           created_at: string | null
-          email: string
+          gmail: string
+          id: string
           name: string
         }
         Insert: {
           created_at?: string | null
-          email: string
+          gmail: string
+          id: string
           name: string
         }
         Update: {
           created_at?: string | null
-          email?: string
+          gmail?: string
+          id?: string
           name?: string
         }
         Relationships: []
