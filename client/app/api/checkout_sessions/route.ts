@@ -5,6 +5,7 @@ const originLink = "https://kingofthepack.vercel.app";
 const priceId = "price_1NN46cGNnS1hfAQ8NsELjKSB";
 
 export async function POST(req: Request, res: Response) {
+  req;
   try {
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
