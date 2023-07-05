@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const originLink = "https://kingofthepack.vercel.app";
-const priceId = "price_1NN46cGNnS1hfAQ8NsELjKSB";
 
 export async function POST(req: Request, res: Response) {
-  req;
+  const { searchParams } = new URL(req.url);
+  const priceId = searchParams.get("priceId");
   try {
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({

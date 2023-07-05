@@ -19,7 +19,7 @@ export default async function App() {
                 cards in pack: {item.totalCards}
               </div>
               <CollectionDisplay text={item.name} />
-              <StripeCheckout />
+              <StripeCheckout priceId={item.stripePriceId} />
             </>
           ))}
         </div>

@@ -3,8 +3,10 @@ import CollectionDisplay from "../components/CollectionDisplay/CollectionDisplay
 import ProtectedLayout from "../components/ProtectedLayout";
 
 import "./page.css";
+import { supabase } from "../utils/supabase";
 
-export default function App() {
+export default async function App() {
+  const { data: set } = await supabase.from("set").select("id, name");
   return (
     <ProtectedLayout>
       <div className={"text-white font-bold text-4xl mb-10"}>
@@ -12,9 +14,11 @@ export default function App() {
       </div>
       <div className={"flex flex-row flex-wrap justify-center"}>
         <div className={"p-5"}>
-          <Link href={"/collection?setId=5&name=Polygon%20Collection"}>
-            <CollectionDisplay text={"Polygon Pack"} />
-          </Link>
+          {set?.map((item) => (
+            <Link href={`/collection/${item.id}`}>
+              <CollectionDisplay text={item.name} />
+            </Link>
+          ))}
         </div>
       </div>
     </ProtectedLayout>

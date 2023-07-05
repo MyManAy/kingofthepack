@@ -1,27 +1,29 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import CollectionCard from "@/app/components/CollectionCard/CollectionCard";
 import "./page.css";
 import { useEffect, useState } from "react";
-import { supabase } from "../utils/supabase";
+import { supabase } from "../../utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
-import emailMinify from "../utils/minifyEmail";
+import emailMinify from "../../utils/minifyEmail";
 
-export default function App() {
-  const searchParams = useSearchParams();
-  const setId = searchParams.get("setId");
-  const name = searchParams.get("name");
+export default function App({
+  params: { id: setId },
+}: {
+  params: { id: string };
+}) {
   const [cardProps, setCardProps] = useState(null as null | IAppProps[]);
   const [email, setEmail] = useState(null as null | string);
   const [totalCards, setTotalCards] = useState(null as null | number);
   const [cardsCollected, setCardsCollected] = useState(0 as number);
+  const [setName, setSetName] = useState(null as null | string);
 
   const getCardProps = async () => {
     const { data: set } = await supabase
       .from("set")
       .select(
         `
+        name,
         weighting (
           rarity,
           weighting
@@ -31,13 +33,12 @@ export default function App() {
         )
   `
       )
-      .eq("id", setId)
+      .eq("id", setId!)
       .single();
 
-    const cards = set!.card;
-    setTotalCards(cards.length);
-    const weightings = set!.weighting;
-    console.log(JSON.stringify(cards, null, 4));
+    const { card, weighting, name } = set!;
+    setTotalCards(card.length);
+    setSetName(name);
 
     const { data: userCardIds } = await supabase
       .from("user")
@@ -61,13 +62,13 @@ export default function App() {
     console.log(ids);
 
     let propWithCount: IAppProps[] = [];
-    for (const prop of cards) {
+    for (const prop of card) {
       const count = ids.filter((id) => id === prop.id).length;
       if (count > 0) setCardsCollected((cardsCol) => cardsCol + 1);
       propWithCount.push({ ...prop, count: count });
     }
     const getWeightingFromRarity = (rarity: string) =>
-      weightings.find((item) => item.rarity === rarity);
+      weighting.find((item) => item.rarity === rarity);
     const sorted = propWithCount.sort(
       (a, b) =>
         getWeightingFromRarity(b.rarity)!.weighting -
@@ -95,7 +96,7 @@ export default function App() {
       <div className={"grid grid-cols-[1fr_4fr_1fr] w-full mb-10"}>
         <div></div>
         <div className={"text-white font-bold text-4xl text-center m-auto"}>
-          {name}
+          {setName}
         </div>
         <div className="flex flex-col justify-center">
           <div

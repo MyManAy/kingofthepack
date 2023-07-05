@@ -1,8 +1,10 @@
-export interface IAppProps {}
+export interface IAppProps {
+  priceId: string;
+}
 
-export default function App(props: IAppProps) {
+export default function App({ priceId }: IAppProps) {
   return (
-    <form action="/api/checkout_sessions" method="POST">
+    <form action={`/api/checkout_sessions?priceId=${priceId}`} method="POST">
       <section
         className={"bg-white flex flex-col w-[100%] rounded-md justify-between"}
       >
