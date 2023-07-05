@@ -14,6 +14,8 @@ export default function App() {
   const name = searchParams.get("name");
   const [cardProps, setCardProps] = useState(null as null | IAppProps[]);
   const [email, setEmail] = useState(null as null | string);
+  const [totalCards, setTotalCards] = useState(null as null | number);
+  const [cardsCollected, setCardsCollected] = useState(0 as number);
 
   const getCardProps = async () => {
     const { data: set } = await supabase
@@ -33,6 +35,7 @@ export default function App() {
       .single();
 
     const cards = set!.card;
+    setTotalCards(cards.length);
     const weightings = set!.weighting;
     console.log(JSON.stringify(cards, null, 4));
 
@@ -60,6 +63,7 @@ export default function App() {
     let propWithCount: IAppProps[] = [];
     for (const prop of cards) {
       const count = ids.filter((id) => id === prop.id).length;
+      if (count === 0) setCardsCollected((cardsCol) => cardsCol + 1);
       propWithCount.push({ ...prop, count: count });
     }
     const getWeightingFromRarity = (rarity: string) =>
@@ -88,7 +92,28 @@ export default function App() {
 
   return (
     <>
-      <div className={"text-white font-bold text-4xl mb-10"}>{name}</div>
+      <div className={"grid grid-cols-[1fr_4fr_1fr] w-full mb-10"}>
+        <div></div>
+        <div className={"text-white font-bold text-4xl text-center m-auto"}>
+          {name}
+        </div>
+        <div className="flex flex-col justify-center">
+          <div
+            className={
+              "text-white opacity-60 font-bold text-xl text-center m-auto"
+            }
+          >
+            total cards: {totalCards}
+          </div>
+          <div
+            className={
+              "text-white opacity-60 font-bold text-xl text-center m-auto"
+            }
+          >
+            cards collected: {cardsCollected}
+          </div>
+        </div>
+      </div>
       <div className={"flex flex-row flex-wrap justify-center"}>
         {cardProps &&
           cardProps.map((item, index) => (

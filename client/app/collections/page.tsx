@@ -13,7 +13,7 @@ export default function App() {
       <div className={"flex flex-row flex-wrap justify-center"}>
         <div className={"p-5"}>
           <Link href={"/collection?setId=5&name=Polygon%20Collection"}>
-            <CollectionDisplay />
+            <CollectionDisplay text={"Polygon Pack"} />
           </Link>
         </div>
       </div>
