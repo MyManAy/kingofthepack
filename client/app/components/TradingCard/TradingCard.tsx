@@ -1,5 +1,6 @@
 import "./Iridescent.css";
 import "./Neon.css";
+import Image from "next/image";
 
 export type Rarity = "Common" | "Rare" | "Epic" | "Golden" | "King of the Pack";
 
@@ -78,7 +79,7 @@ export default function App({
         }
       >
         <div className={rarityStyleMapping[rarity].nameStyle}>{animalName}</div>
-        <img
+        <Image
           alt={animalName}
           src={src}
           className="self-center rounded h-[300px]"
