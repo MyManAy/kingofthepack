@@ -63,7 +63,7 @@ export default function App() {
     let propWithCount: IAppProps[] = [];
     for (const prop of cards) {
       const count = ids.filter((id) => id === prop.id).length;
-      if (count === 0) setCardsCollected((cardsCol) => cardsCol + 1);
+      if (count > 0) setCardsCollected((cardsCol) => cardsCol + 1);
       propWithCount.push({ ...prop, count: count });
     }
     const getWeightingFromRarity = (rarity: string) =>
