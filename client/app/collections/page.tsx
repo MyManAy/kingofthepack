@@ -1,7 +1,6 @@
 import Link from "next/link";
 import CollectionDisplay from "../components/CollectionDisplay/CollectionDisplay";
 import ProtectedLayout from "../components/ProtectedLayout";
-
 import "./page.css";
 import { supabase } from "../utils/supabase";
 
