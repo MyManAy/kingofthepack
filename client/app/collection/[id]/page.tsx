@@ -2,7 +2,6 @@ import CollectionCard from "@/app/components/CollectionCard/CollectionCard";
 import "./page.css";
 import { supabase } from "../../utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
-import emailMinify from "../../utils/minifyEmail";
 
 export async function generateStaticParams() {
   const { data: set } = await supabase.from("set").select("id");
@@ -17,9 +16,10 @@ export default async function App({
 }: {
   params: { id: string };
 }) {
-  const { data } = await supabase.auth.getUser();
-  const userEmail = data.user?.email!;
-  const email = emailMinify(userEmail);
+  // const { data } = await supabase.auth.getUser();
+  // const userEmail = data.user?.email!;
+  // const email = emailMinify(userEmail);
+  const email = "nithinmonni@gmail.com";
 
   const { data: set } = await supabase
     .from("set")
