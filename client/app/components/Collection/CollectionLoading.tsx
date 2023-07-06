@@ -1,4 +1,4 @@
-import CollectionCard from "./CollectionCard/CollectionCard";
+import CollectionCard from "../CollectionCard/CollectionCard";
 
 export interface CardProp {
   animalName: string;

@@ -1,8 +1,8 @@
 import "./page.css";
 import { supabase } from "../../utils/supabase";
-import CollectionLoading from "@/app/components/CollectionLoading";
+import CollectionLoading from "@/app/components/Collection/CollectionLoading";
 import { Suspense } from "react";
-import CollectionPage from "@/app/components/CollectionPage";
+import CollectionPage from "@/app/components/Collection/CollectionPage";
 
 export async function generateStaticParams() {
   const { data: set } = await supabase.from("set").select("id");
