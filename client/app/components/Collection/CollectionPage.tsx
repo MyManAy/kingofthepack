@@ -3,11 +3,14 @@ import "./page.css";
 import { supabase } from "@/app/utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 export default async function App({ setId }: { setId: string }) {
   // const { data } = await supabase.auth.getUser();
   // const userEmail = data.user?.email!;
   // const email = emailMinify(userEmail);
   const email = "nithinmonni@gmail.com";
+  sleep(5000);
 
   const { data: set } = await supabase
     .from("set")
