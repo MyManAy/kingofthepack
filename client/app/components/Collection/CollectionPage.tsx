@@ -6,7 +6,7 @@ export default async function App({ setId }: { setId: string }) {
   // const { data } = await supabase.auth.getUser();
   // const userEmail = data.user?.email!;
   // const email = emailMinify(userEmail);
-  const res = await fetch(`/api/getCollectionProps`, {
+  const res = await fetch(`/api/get_collection_props?setId=${setId}`, {
     cache: "no-store",
   });
   const json = await res.json();
