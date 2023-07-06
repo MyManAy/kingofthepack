@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   const { data: set } = await supabase.from("set").select("id");
   const ids = set?.map((item) => item.id)!;
   return ids.map((id) => ({
-    id: id,
+    id: id.toString(),
   }));
 }
 
