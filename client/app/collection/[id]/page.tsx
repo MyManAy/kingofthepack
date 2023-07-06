@@ -1,4 +1,3 @@
-import "./page.css";
 import { supabase } from "../../utils/supabase";
 import CollectionLoading from "@/app/components/Collection/CollectionLoading";
 import { Suspense } from "react";
