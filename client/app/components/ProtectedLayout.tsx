@@ -1,26 +1,19 @@
-"use client";
+import { redirect } from "next/navigation";
+import { Database } from "../generated/types_db";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-import { useEffect, useState } from "react";
-import { supabase } from "../utils/supabase";
-import { useRouter } from "next/navigation";
-
-export default function ProtectedLayout({
+export default async function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    const setAuthState = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      const authState = user ? true : false;
-      setIsAuthenticated(authState);
-      if (!authState) router.push("/auth/sign-up");
-    };
-    setAuthState();
-  }, []);
-  return isAuthenticated && <>{children}</>;
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) redirect("/auth/sign-up");
+
+  return <>{children}</>;
 }

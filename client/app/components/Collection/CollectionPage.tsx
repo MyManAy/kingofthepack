@@ -1,16 +1,16 @@
 import CollectionCard from "@/app/components/CollectionCard/CollectionCard";
 import "./page.css";
-import { supabase } from "@/app/utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { Database } from "@/app/generated/types_db";
+import emailMinify from "@/app/utils/minifyEmail";
 
 export default async function App({ setId }: { setId: string }) {
-  // const { data } = await supabase.auth.getUser();
-  // const userEmail = data.user?.email!;
-  // const email = emailMinify(userEmail);
-  const email = "nithinmonni@gmail.com";
-  await sleep(5000);
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const { data } = await supabase.auth.getUser();
+  const userEmail = data.user?.email!;
+  const email = emailMinify(userEmail);
 
   const { data: set } = await supabase
     .from("set")

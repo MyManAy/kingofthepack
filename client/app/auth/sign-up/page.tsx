@@ -7,21 +7,23 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { supabase } from "../../utils/supabase";
 import "./page.css";
 import emailMinify from "@/app/utils/minifyEmail";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/app/generated/types_db";
 
 export default function App() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const supabase = createClientComponentClient<Database>();
 
   const signUp = async (username: string, email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}`,
+        emailRedirectTo: `${location.origin}/api/auth/callback`,
         data: {
           username,
         },

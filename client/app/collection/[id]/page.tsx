@@ -2,6 +2,7 @@ import { supabase } from "../../utils/supabase";
 import CollectionLoading from "@/app/components/Collection/CollectionLoading";
 import { Suspense } from "react";
 import CollectionPage from "@/app/components/Collection/CollectionPage";
+import ProtectedLayout from "@/app/components/ProtectedLayout";
 
 export const dynamic = "force-dynamic";
 
@@ -47,16 +48,18 @@ export default async function App({
   const cardProps = sorted;
 
   return (
-    <Suspense
-      fallback={
-        <CollectionLoading
-          setName={setName}
-          totalCards={totalCards}
-          cardProps={cardProps}
-        />
-      }
-    >
-      <CollectionPage setId={setId} />
-    </Suspense>
+    <ProtectedLayout>
+      <Suspense
+        fallback={
+          <CollectionLoading
+            setName={setName}
+            totalCards={totalCards}
+            cardProps={cardProps}
+          />
+        }
+      >
+        <CollectionPage setId={setId} />
+      </Suspense>
+    </ProtectedLayout>
   );
 }
