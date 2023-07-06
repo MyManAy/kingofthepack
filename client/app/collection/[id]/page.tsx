@@ -3,7 +3,7 @@ import CollectionLoading from "@/app/components/Collection/CollectionLoading";
 import { Suspense } from "react";
 import CollectionPage from "@/app/components/Collection/CollectionPage";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const { data: set } = await supabase.from("set").select("id");
