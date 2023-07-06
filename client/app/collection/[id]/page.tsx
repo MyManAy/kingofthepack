@@ -3,6 +3,8 @@ import "./page.css";
 import { supabase } from "../../utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
 
+export const dynamic = "force-dynamic";
+
 export default async function App({
   params: { id: setId },
 }: {
