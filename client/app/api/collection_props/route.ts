@@ -65,5 +65,11 @@ export async function GET(req: Request, res: Response) {
   );
   const cardProps = sorted;
 
-  return NextResponse.json({ setName, totalCards, cardsCollected, cardProps });
+  // return NextResponse.json({ setName, totalCards, cardsCollected, cardProps });
+  return NextResponse.json({
+    setName: "bla",
+    totalCards: 10,
+    cardsCollected: 5,
+    cardProps: ["nothing"],
+  });
 }
