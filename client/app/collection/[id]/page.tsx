@@ -1,30 +1,28 @@
+"use client";
+
 import CollectionCard from "@/app/components/CollectionCard/CollectionCard";
 import "./page.css";
+import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
+import emailMinify from "../../utils/minifyEmail";
 
-export async function generateStaticParams() {
-  const { data: set } = await supabase.from("set").select("id");
-  const ids = set?.map((item) => item.id)!;
-  return ids.map((id) => ({
-    id: id.toString(),
-  }));
-}
-
-export default async function App({
+export default function App({
   params: { id: setId },
 }: {
   params: { id: string };
 }) {
-  // const { data } = await supabase.auth.getUser();
-  // const userEmail = data.user?.email!;
-  // const email = emailMinify(userEmail);
-  const email = "nithinmonni@gmail.com";
+  const [cardProps, setCardProps] = useState(null as null | IAppProps[]);
+  const [email, setEmail] = useState(null as null | string);
+  const [totalCards, setTotalCards] = useState(null as null | number);
+  const [cardsCollected, setCardsCollected] = useState(0 as number);
+  const [setName, setSetName] = useState(null as null | string);
 
-  const { data: set } = await supabase
-    .from("set")
-    .select(
-      `
+  const getCardProps = async () => {
+    const { data: set } = await supabase
+      .from("set")
+      .select(
+        `
         name,
         weighting (
           rarity,
@@ -34,18 +32,18 @@ export default async function App({
           *
         )
   `
-    )
-    .eq("id", setId!)
-    .single();
+      )
+      .eq("id", setId!)
+      .single();
 
-  const { card, weighting, name } = set!;
-  const totalCards = card.length;
-  const setName = name;
+    const { card, weighting, name } = set!;
+    setTotalCards(card.length);
+    setSetName(name);
 
-  const { data: userCardIds } = await supabase
-    .from("user")
-    .select(
-      `
+    const { data: userCardIds } = await supabase
+      .from("user")
+      .select(
+        `
       openedPack (
         circulationCard (
           card (
@@ -54,30 +52,44 @@ export default async function App({
         )
       )
    `
-    )
-    .eq("email", email)
-    .single();
+      )
+      .eq("email", email)
+      .single();
 
-  const ids = userCardIds!.openedPack.flatMap((op) =>
-    op.circulationCard.flatMap((cc) => cc.card!.id)
-  );
-  console.log(ids);
+    const ids = userCardIds!.openedPack.flatMap((op) =>
+      op.circulationCard.flatMap((cc) => cc.card!.id)
+    );
+    console.log(ids);
 
-  let cardsCollected = 0;
-  let propWithCount: IAppProps[] = [];
-  for (const prop of card) {
-    const count = ids.filter((id) => id === prop.id).length;
-    if (count > 0) cardsCollected++;
-    propWithCount.push({ ...prop, count: count });
-  }
-  const getWeightingFromRarity = (rarity: string) =>
-    weighting.find((item) => item.rarity === rarity);
-  const sorted = propWithCount.sort(
-    (a, b) =>
-      getWeightingFromRarity(b.rarity)!.weighting -
-      getWeightingFromRarity(a.rarity)!.weighting
-  );
-  const cardProps = sorted;
+    let propWithCount: IAppProps[] = [];
+    for (const prop of card) {
+      const count = ids.filter((id) => id === prop.id).length;
+      if (count > 0) setCardsCollected((cardsCol) => cardsCol + 1);
+      propWithCount.push({ ...prop, count: count });
+    }
+    const getWeightingFromRarity = (rarity: string) =>
+      weighting.find((item) => item.rarity === rarity);
+    const sorted = propWithCount.sort(
+      (a, b) =>
+        getWeightingFromRarity(b.rarity)!.weighting -
+        getWeightingFromRarity(a.rarity)!.weighting
+    );
+    setCardProps(sorted);
+  };
+
+  const getMinifiedEmail = async () => {
+    const { data } = await supabase.auth.getUser();
+    const userEmail = data.user?.email!;
+    setEmail(emailMinify(userEmail));
+  };
+
+  useEffect(() => {
+    getMinifiedEmail();
+  }, []);
+
+  useEffect(() => {
+    if (email) getCardProps();
+  }, [email]);
 
   return (
     <>
@@ -104,11 +116,12 @@ export default async function App({
         </div>
       </div>
       <div className={"flex flex-row flex-wrap justify-center"}>
-        {cardProps.map((item, index) => (
-          <div className={"p-5"}>
-            <CollectionCard {...item} key={index} />
-          </div>
-        ))}
+        {cardProps &&
+          cardProps.map((item, index) => (
+            <div className={"p-5"}>
+              <CollectionCard {...item} key={index} />
+            </div>
+          ))}
       </div>
     </>
   );
