@@ -10,7 +10,7 @@ export default async function App({ setId }: { setId: string }) {
   // const userEmail = data.user?.email!;
   // const email = emailMinify(userEmail);
   const email = "nithinmonni@gmail.com";
-  sleep(5000);
+  await sleep(5000);
 
   const { data: set } = await supabase
     .from("set")
