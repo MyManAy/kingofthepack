@@ -10,8 +10,8 @@ export default async function Component({ setId }: { setId: string }) {
     `https://kingofthepack.vercel.app/api/collection_props?setId=${setId}`
   );
   console.log(res);
-  const json = await res.json();
-  const { setName, totalCards, cardsCollected, cardProps } = json;
+  const { data } = await res.json();
+  const { setName, totalCards, cardsCollected, cardProps } = data;
 
   return (
     <>
