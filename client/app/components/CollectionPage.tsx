@@ -5,11 +5,7 @@ import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
 
 export const dynamic = "force-dynamic";
 
-export default async function App({
-  params: { id: setId },
-}: {
-  params: { id: string };
-}) {
+export default async function App({ setId }: { setId: string }) {
   // const { data } = await supabase.auth.getUser();
   // const userEmail = data.user?.email!;
   // const email = emailMinify(userEmail);
