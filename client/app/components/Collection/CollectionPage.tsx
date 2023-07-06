@@ -7,7 +7,8 @@ export default async function Component({ setId }: { setId: string }) {
   // const userEmail = data.user?.email!;
   // const email = emailMinify(userEmail);
   const res = await fetch(
-    `https://kingofthepack.vercel.app/api/collection_props?setId=${setId}`
+    `https://kingofthepack.vercel.app/api/collection_props?setId=${setId}`,
+    { cache: "no-store" }
   );
   const json = await res.json();
   const { setName, totalCards, cardsCollected, cardProps } = json;
