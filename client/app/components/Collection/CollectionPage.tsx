@@ -11,6 +11,7 @@ export default async function App({ setId }: { setId: string }) {
   const { data } = await supabase.auth.getSession();
   console.log(JSON.stringify(data, null, 4));
   const userEmail = data.session?.user.email;
+  console.log(userEmail);
   const email = emailMinify(userEmail!);
 
   const { data: set } = await supabase
