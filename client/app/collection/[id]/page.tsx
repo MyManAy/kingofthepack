@@ -1,13 +1,15 @@
-import { supabase } from "../../utils/supabase";
+import { supabase as AdminSupabase } from "../../utils/supabase";
 import CollectionLoading from "@/app/components/Collection/CollectionLoading";
 import { Suspense } from "react";
 import CollectionPage from "@/app/components/Collection/CollectionPage";
 import ProtectedLayout from "@/app/components/ProtectedLayout";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
-  const { data: set } = await supabase.from("set").select("id");
+  const { data: set } = await AdminSupabase.from("set").select("id");
   const ids = set?.map((item) => item.id)!;
   return ids.map((id) => ({ id: id.toString() }));
 }
@@ -17,6 +19,7 @@ export default async function App({
 }: {
   params: { id: string };
 }) {
+  const supabase = createServerComponentClient({ cookies });
   const { data: set } = await supabase
     .from("set")
     .select(
