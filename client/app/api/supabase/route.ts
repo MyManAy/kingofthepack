@@ -8,14 +8,11 @@ export async function POST(req: Request, res: any) {
   const record = json.record;
   const { email, raw_user_meta_data, id, email_confirmed_at } = record;
   const username = raw_user_meta_data.name ?? raw_user_meta_data.username;
-  console.log(email, username, id);
   if (email_confirmed_at) {
     const { data, error } = (await supabase
       .from("user")
-      .insert({ email: emailMinify(email), username, id })
+      .insert({ email: emailMinify(email), username: username.trim(), id })
       .select()) as any;
-    console.log(JSON.stringify(data, null, 4));
-    console.log(JSON.stringify(error, null, 4));
   }
 
   return NextResponse.json({
