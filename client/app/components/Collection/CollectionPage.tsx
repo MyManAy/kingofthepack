@@ -9,6 +9,7 @@ import emailMinify from "@/app/utils/minifyEmail";
 export default async function App({ setId }: { setId: string }) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data } = await supabase.auth.getUser();
+  console.log(JSON.stringify(data, null, 4));
   const userEmail = data.user?.email!;
   const email = emailMinify(userEmail);
 
