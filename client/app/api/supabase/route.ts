@@ -11,7 +11,7 @@ export async function POST(req: Request, res: any) {
   if (email_confirmed_at) {
     const { data, error } = (await supabase
       .from("user")
-      .insert({ email: emailMinify(email), username: username.trim(), id })
+      .insert({ email: emailMinify(email), username: username, id })
       .select()) as any;
   }
 

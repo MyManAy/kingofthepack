@@ -25,7 +25,7 @@ export default function App() {
       options: {
         emailRedirectTo: `${location.origin}/api/auth/callback`,
         data: {
-          username,
+          username: username.trim(),
         },
       },
     });
@@ -60,7 +60,7 @@ export default function App() {
     const { count } = await supabase
       .from("user")
       .select("*", { count: "exact", head: true })
-      .ilike("username", username)
+      .ilike("username", username.trim())
       .limit(1);
     return count! > 0;
   };
