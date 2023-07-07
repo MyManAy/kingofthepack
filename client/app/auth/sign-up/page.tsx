@@ -48,11 +48,21 @@ export default function App() {
     };
 
   const userExists = async (email: string) => {
-    const { count } = (await supabase
+    const { count } = await supabase
       .from("user")
       .select("*", { count: "exact", head: true })
-      .eq("email", emailMinify(email))) as any;
-    return count > 0;
+      .eq("email", emailMinify(email))
+      .limit(1);
+    return count! > 0;
+  };
+
+  const userNameExists = async (username: string) => {
+    const { count } = await supabase
+      .from("user")
+      .select("*", { count: "exact", head: true })
+      .ilike("username", `%${username}%`)
+      .limit(1);
+    return count! > 0;
   };
 
   const handleSubmit =
@@ -64,6 +74,8 @@ export default function App() {
         window.alert("Please fill in all fields");
       else if (await userExists(email))
         window.alert(`User with email: "${email}" already exists`);
+      else if (await userNameExists(username))
+        window.alert(`User with username: "${username}" already exists`);
       else signUp(username, email, password);
     };
 
