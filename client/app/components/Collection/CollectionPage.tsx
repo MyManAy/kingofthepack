@@ -50,26 +50,29 @@ export default async function App({ setId }: { setId: string }) {
     .eq("email", email)
     .single();
 
-  const ids = userCardIds!.openedPack.flatMap((op) =>
-    op.circulationCard.flatMap((cc) => cc.card!.id)
-  );
-  console.log(ids);
-
   let cardsCollected = 0;
-  let propWithCount: IAppProps[] = [];
-  for (const prop of card) {
-    const count = ids.filter((id) => id === prop.id).length;
-    if (count > 0) cardsCollected++;
-    propWithCount.push({ ...prop, count: count });
+  let cardProps: IAppProps[] = card.map((item) => ({ ...item, count: 0 }));
+  if (userCardIds?.openedPack) {
+    const ids = userCardIds?.openedPack.flatMap((op) =>
+      op.circulationCard.flatMap((cc) => cc.card!.id)
+    );
+    if (ids.length > 0) {
+      let propWithCount: IAppProps[] = [];
+      for (const prop of card) {
+        const count = ids.filter((id) => id === prop.id).length;
+        if (count > 0) cardsCollected++;
+        propWithCount.push({ ...prop, count: count });
+      }
+      const getWeightingFromRarity = (rarity: string) =>
+        weighting.find((item) => item.rarity === rarity);
+      const sorted = propWithCount.sort(
+        (a, b) =>
+          getWeightingFromRarity(b.rarity)!.weighting -
+          getWeightingFromRarity(a.rarity)!.weighting
+      );
+      cardProps = sorted;
+    }
   }
-  const getWeightingFromRarity = (rarity: string) =>
-    weighting.find((item) => item.rarity === rarity);
-  const sorted = propWithCount.sort(
-    (a, b) =>
-      getWeightingFromRarity(b.rarity)!.weighting -
-      getWeightingFromRarity(a.rarity)!.weighting
-  );
-  const cardProps = sorted;
 
   return (
     <>
