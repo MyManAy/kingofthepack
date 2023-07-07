@@ -18,12 +18,14 @@ export default function App() {
   const [password, setPassword] = useState("");
   const supabase = createClientComponentClient<Database>();
 
+  const redirectUrl = `${location.origin}/api/auth/callback`;
+
   const signUp = async (username: string, email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/api/auth/callback`,
+        emailRedirectTo: redirectUrl,
         data: {
           username: username.trim(),
         },
@@ -36,6 +38,9 @@ export default function App() {
   const signUpWithGoogle = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: redirectUrl,
+      },
     });
     console.log(data);
     if (error) window.alert(error);
