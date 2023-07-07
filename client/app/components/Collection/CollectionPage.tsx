@@ -6,14 +6,11 @@ import { cookies } from "next/headers";
 import { Database } from "@/app/generated/types_db";
 import emailMinify from "@/app/utils/minifyEmail";
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
 export default async function App({ setId }: { setId: string }) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data } = await supabase.auth.getSession();
   const userEmail = data.session?.user.email;
   const email = emailMinify(userEmail!);
-  await sleep(2000);
 
   const { data: set } = await supabase
     .from("set")
