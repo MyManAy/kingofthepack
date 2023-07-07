@@ -1,13 +1,13 @@
 import Link from "next/link";
 import CollectionDisplay from "../components/CollectionDisplay/CollectionDisplay";
-import ProtectedLayout from "../components/ProtectedLayout";
 import "./page.css";
 import { supabase } from "../utils/supabase";
 
 export default async function App() {
   const { data: set } = await supabase.from("set").select("id, name");
   return (
-    <ProtectedLayout>
+    <>
+      {/* <ProtectedLayout> */}
       <div className={"text-white font-bold text-4xl mb-10"}>
         Your Collections
       </div>
@@ -20,6 +20,7 @@ export default async function App() {
           ))}
         </div>
       </div>
-    </ProtectedLayout>
+      {/* </ProtectedLayout> */}
+    </>
   );
 }
