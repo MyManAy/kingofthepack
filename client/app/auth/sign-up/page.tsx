@@ -18,7 +18,7 @@ export default function App() {
   const [password, setPassword] = useState("");
   const supabase = createClientComponentClient<Database>();
 
-  const redirectUrl = `${location.origin}/api/auth/callback`;
+  const redirectUrl = `https://kingofthepack.vercel.app/api/auth/callback`;
 
   const signUp = async (username: string, email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
