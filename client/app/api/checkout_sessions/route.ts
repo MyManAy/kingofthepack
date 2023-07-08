@@ -1,3 +1,5 @@
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -6,6 +8,11 @@ const originLink = "https://kingofthepack.vercel.app";
 export async function POST(req: Request, res: Response) {
   const { searchParams } = new URL(req.url);
   const priceId = searchParams.get("priceId");
+  const supabase = createRouteHandlerClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userEmail = session?.user.email;
   try {
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
@@ -19,6 +26,9 @@ export async function POST(req: Request, res: Response) {
       mode: "payment",
       success_url: `${originLink}/pack`,
       cancel_url: `${originLink}?canceled=true`,
+      metadata: {
+        email: userEmail,
+      },
     });
     console.log("worked this is the test");
     return NextResponse.redirect(session.url, 303);

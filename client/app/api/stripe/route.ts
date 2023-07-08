@@ -34,7 +34,7 @@ export async function POST(req: Request, res: any) {
     case "checkout.session.completed": {
       const checkoutSession: any = event.data.object;
       const sessionId = checkoutSession.id;
-      const email = checkoutSession.customer_details.email;
+      const email = checkoutSession.metadata.email;
       const expandedSession = await stripe.checkout.sessions.retrieve(
         sessionId,
         {
