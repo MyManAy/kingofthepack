@@ -34,7 +34,7 @@ export async function POST(req: Request, res: any) {
     case "checkout.session.completed": {
       const checkoutSession: any = event.data.object;
       const sessionId = checkoutSession.id;
-      const email = checkoutSession.metadata.email;
+      const email = checkoutSession.customer_email;
       console.log(email);
       const expandedSession = await stripe.checkout.sessions.retrieve(
         sessionId,
@@ -73,9 +73,6 @@ export async function POST(req: Request, res: any) {
         const randomId = randomCardId(cards, gen);
         randomIds.push(randomId);
       }
-
-      console.log(email);
-      console.log(emailMinify(email));
       const { data: openedPack } = await supabase
         .from("openedPack")
         .insert({ packId: packId, userEmail: emailMinify(email) })

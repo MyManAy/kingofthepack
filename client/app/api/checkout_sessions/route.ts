@@ -26,9 +26,7 @@ export async function POST(req: Request, res: Response) {
       mode: "payment",
       success_url: `${originLink}/pack`,
       cancel_url: `${originLink}?canceled=true`,
-      metadata: {
-        email: userEmail,
-      },
+      customer_email: userEmail,
     });
     console.log("worked this is the test");
     return NextResponse.redirect(session.url, 303);
