@@ -1,0 +1,176 @@
+[
+  {
+    "src": "/Jade Animal Drawings/Common - Alligator.png",
+    "animalName": "Alligator",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Dog 1 of 2.png",
+    "animalName": "Dog",
+    "rarity": "Common",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Fish.png",
+    "animalName": "Fish",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Fox 1 of 4.png",
+    "animalName": "Fox",
+    "rarity": "Common",
+    "variation": "1",
+    "totalVariations": "4"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Goat.png",
+    "animalName": "Goat",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Horse.png",
+    "animalName": "Horse",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Ox 1 of 2.png",
+    "animalName": "Ox",
+    "rarity": "Common",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Pig.png",
+    "animalName": "Pig",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Rat 1 of 2.png",
+    "animalName": "Rat",
+    "rarity": "Common",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Rooster.png",
+    "animalName": "Rooster",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Sheep.png",
+    "animalName": "Sheep",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Common - Sloth.png",
+    "animalName": "Sloth",
+    "rarity": "Common"
+  },
+  {
+    "src": "/Jade Animal Drawings/Epic - Fox 3 of 4.png",
+    "animalName": "Fox",
+    "rarity": "Epic",
+    "variation": "3",
+    "totalVariations": "4"
+  },
+  {
+    "src": "/Jade Animal Drawings/Epic - Ox 2 of 2.png",
+    "animalName": "Ox",
+    "rarity": "Epic",
+    "variation": "2",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Epic - Pangolin.png",
+    "animalName": "Pangolin",
+    "rarity": "Epic"
+  },
+  {
+    "src": "/Jade Animal Drawings/Epic - Snake 1 of 2.png",
+    "animalName": "Snake",
+    "rarity": "Epic",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Epic - Snake 2 of 2.png",
+    "animalName": "Snake",
+    "rarity": "Epic",
+    "variation": "2",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Epic - Tiger.png",
+    "animalName": "Tiger",
+    "rarity": "Epic"
+  },
+  {
+    "src": "/Jade Animal Drawings/King of the Pack - Dragon.png",
+    "animalName": "Dragon",
+    "rarity": "King of the Pack"
+  },
+  {
+    "src": "/Jade Animal Drawings/Legendary - Fox 4 of 4.png",
+    "animalName": "Fox",
+    "rarity": "Legendary",
+    "variation": "4",
+    "totalVariations": "4"
+  },
+  {
+    "src": "/Jade Animal Drawings/Legendary - Leopard.png",
+    "animalName": "Leopard",
+    "rarity": "Legendary"
+  },
+  {
+    "src": "/Jade Animal Drawings/Legendary - Macaque.png",
+    "animalName": "Macaque",
+    "rarity": "Legendary"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Dog 1 of 2.png",
+    "animalName": "Dog",
+    "rarity": "Rare",
+    "variation": "1",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Fox 2 of 4.png",
+    "animalName": "Fox",
+    "rarity": "Rare",
+    "variation": "2",
+    "totalVariations": "4"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Lion.png",
+    "animalName": "Lion",
+    "rarity": "Rare"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Panda.png",
+    "animalName": "Panda",
+    "rarity": "Rare"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Rabbit.png",
+    "animalName": "Rabbit",
+    "rarity": "Rare"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Raccoon.png",
+    "animalName": "Raccoon",
+    "rarity": "Rare"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Rat 2 of 2.png",
+    "animalName": "Rat",
+    "rarity": "Rare",
+    "variation": "2",
+    "totalVariations": "2"
+  },
+  {
+    "src": "/Jade Animal Drawings/Rare - Stork.png",
+    "animalName": "Stork",
+    "rarity": "Rare"
+  }
+]
