@@ -49,7 +49,6 @@ export default async function App({
       getWeightingFromRarity(a.rarity)!.weighting
   );
   const cardProps = sorted;
-
   return (
     <ProtectedLayout>
       <Suspense
