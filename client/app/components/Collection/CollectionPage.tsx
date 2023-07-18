@@ -6,8 +6,6 @@ import { cookies } from "next/headers";
 import { Database } from "@/app/generated/types_db";
 import emailMinify from "@/app/utils/minifyEmail";
 
-export const dynamic = "force-dynamic";
-
 export default async function App({ setId }: { setId: string }) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data } = await supabase.auth.getSession();
