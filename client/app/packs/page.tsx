@@ -4,6 +4,8 @@ import StripeCheckout from "../components/StripeCheckout";
 import { supabase } from "../utils/supabase";
 import "./page.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function App() {
   const { data: data } = await supabase
     .from("pack")
