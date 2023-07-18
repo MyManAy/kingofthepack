@@ -18,35 +18,35 @@ export default async function App({
   params: { id: string };
 }) {
   const supabase = createServerComponentClient({ cookies });
-  const { data: set } = await supabase
-    .from("set")
-    .select(
-      `
-        name,
-        weighting (
-          rarity,
-          weighting
-        ),
-        card (
-          *
-        )
-  `
-    )
-    .eq("id", setId!)
-    .single();
+  // const { data: set } = await supabase
+  //   .from("set")
+  //   .select(
+  //     `
+  //       name,
+  //       weighting (
+  //         rarity,
+  //         weighting
+  //       ),
+  //       card (
+  //         *
+  //       )
+  // `
+  //   )
+  //   .eq("id", setId!)
+  //   .single();
 
-  const { card, weighting, name } = set!;
-  const totalCards = card.length;
-  const setName = name;
+  // const { card, weighting, name } = set!;
+  // const totalCards = card.length;
+  // const setName = name;
 
-  const getWeightingFromRarity = (rarity: string) =>
-    weighting.find((item) => item.rarity === rarity);
-  const sorted = card.sort(
-    (a, b) =>
-      getWeightingFromRarity(b.rarity)!.weighting -
-      getWeightingFromRarity(a.rarity)!.weighting
-  );
-  const cardProps = sorted;
+  // const getWeightingFromRarity = (rarity: string) =>
+  //   weighting.find((item) => item.rarity === rarity);
+  // const sorted = card.sort(
+  //   (a, b) =>
+  //     getWeightingFromRarity(b.rarity)!.weighting -
+  //     getWeightingFromRarity(a.rarity)!.weighting
+  // );
+  // const cardProps = sorted;
   return (
     <ProtectedLayout>
       {/* <Suspense
