@@ -1,12 +1,10 @@
 import { supabase as AdminSupabase } from "../../utils/supabase";
-import CollectionLoading from "@/app/components/Collection/CollectionLoading";
-import { Suspense } from "react";
+// import CollectionLoading from "@/app/components/Collection/CollectionLoading";
+// import { Suspense } from "react";
 import CollectionPage from "@/app/components/Collection/CollectionPage";
 import ProtectedLayout from "@/app/components/ProtectedLayout";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-
-export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const { data: set } = await AdminSupabase.from("set").select("id");
@@ -51,7 +49,7 @@ export default async function App({
   const cardProps = sorted;
   return (
     <ProtectedLayout>
-      <Suspense
+      {/* <Suspense
         fallback={
           <CollectionLoading
             setName={setName}
@@ -59,9 +57,9 @@ export default async function App({
             cardProps={cardProps}
           />
         }
-      >
-        <CollectionPage setId={setId} />
-      </Suspense>
+      > */}
+      <CollectionPage setId={setId} />
+      {/* </Suspense> */}
     </ProtectedLayout>
   );
 }
