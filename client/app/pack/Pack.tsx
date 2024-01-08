@@ -57,12 +57,12 @@ export default () => {
       .limit(1)
       .single();
 
-    console.log(getCardProps);
+    console.log("hello" + getCardProps);
 
     const cards = (openedPack!.circulationCard!.map(
       (cc) => cc.card!
     ) as unknown) as IAppProps[];
-    console.log(cards);
+    console.log("bye" + cards);
     setPack(cards);
   };
 
