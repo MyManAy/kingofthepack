@@ -1,5 +1,4 @@
 "use client";
-
 import ArrowLeft from "@mui/icons-material/ArrowBackIosNew";
 import FlippingCard from "../components/FlippingCard/FlippingCard";
 import "./page.css";
@@ -7,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
 import { useRouter } from "next/navigation";
 import emailMinify from "../utils/minifyEmail";
-import { createClient } from "@supabase/supabase-js";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../generated/types_db";
 
 export default () => {
@@ -18,10 +17,7 @@ export default () => {
   const [flipped, setFlipped] = useState(false);
   const [email, setEmail] = useState(null as null | string);
 
-  const supabase = createClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClientComponentClient<Database>();
 
   const onArrowClick = () => {
     if (arrowVisible) {
@@ -63,25 +59,19 @@ export default () => {
       .limit(1)
       .single();
 
-    window.alert("hello" + getCardProps);
-
     const cards = (openedPack!.circulationCard!.map(
       (cc) => cc.card!
     ) as unknown) as IAppProps[];
-    console.log("bye" + cards);
     setPack(cards);
   };
 
   const getMinifiedEmail = async () => {
     const { data } = await supabase.auth.getUser();
     const userEmail = data.user?.email!;
-    window.alert(data);
-    window.alert(userEmail);
     setEmail(emailMinify(userEmail));
   };
 
   useEffect(() => {
-    window.alert("hello");
     getMinifiedEmail();
   }, []);
 
