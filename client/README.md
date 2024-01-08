@@ -60,3 +60,6 @@ https://supabase.com/docs/guides/api/rest/generating-types
 2. npx supabase gen types typescript --project-id "vdbkaqjcvygphoahmtgo" --schema public > app/generated/types_db.ts
 
 DEV ONLY:
+
+1. make sure to paste all the envs in .env from vercel
+2.
