@@ -11,7 +11,6 @@ export default async function App() {
     .from("pack")
     .select("name, totalCards, stripePriceId");
 
-  console.log(JSON.stringify(data, null, 4));
   return (
     <ProtectedLayout>
       <div className={"text-white font-bold text-4xl mb-10"}>Packs</div>
