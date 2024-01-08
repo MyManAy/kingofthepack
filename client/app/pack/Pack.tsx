@@ -69,6 +69,7 @@ export default () => {
   const getMinifiedEmail = async () => {
     const { data } = await supabase.auth.getUser();
     const userEmail = data.user?.email!;
+    console.log(userEmail);
     setEmail(emailMinify(userEmail));
   };
 
