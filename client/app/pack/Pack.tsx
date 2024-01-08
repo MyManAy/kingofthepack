@@ -6,8 +6,9 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/app/utils/supabase";
 import emailMinify from "../utils/minifyEmail";
+import { createClient } from "@supabase/supabase-js";
+import { Database } from "../generated/types_db";
 
 export default () => {
   const router = useRouter();
@@ -16,6 +17,11 @@ export default () => {
   const [pack, setPack] = useState(null as null | IAppProps[]);
   const [flipped, setFlipped] = useState(false);
   const [email, setEmail] = useState(null as null | string);
+
+  const supabase = createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
   const onArrowClick = () => {
     if (arrowVisible) {
@@ -52,12 +58,12 @@ export default () => {
       )
   `
       )
-      .eq("userEmail", email)
+      .eq("userEmail", email!)
       .order("id", { ascending: false })
       .limit(1)
       .single();
 
-    console.log("hello" + getCardProps);
+    window.alert("hello" + getCardProps);
 
     const cards = (openedPack!.circulationCard!.map(
       (cc) => cc.card!
@@ -69,11 +75,13 @@ export default () => {
   const getMinifiedEmail = async () => {
     const { data } = await supabase.auth.getUser();
     const userEmail = data.user?.email!;
-    console.log(userEmail);
+    window.alert(data);
+    window.alert(userEmail);
     setEmail(emailMinify(userEmail));
   };
 
   useEffect(() => {
+    window.alert("hello");
     getMinifiedEmail();
   }, []);
 

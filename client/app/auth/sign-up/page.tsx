@@ -18,7 +18,7 @@ export default function App() {
   const [password, setPassword] = useState("");
   const supabase = createClientComponentClient<Database>();
 
-  const redirectUrl = `https://kingofthepack.vercel.app/api/auth/callback`;
+  const redirectUrl = `http://localhost:3000/api/auth/callback`;
 
   const signUp = async (username: string, email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
@@ -46,11 +46,11 @@ export default function App() {
     if (error) window.alert(error);
   };
 
-  const handleField =
-    (setter: Dispatch<SetStateAction<any>>) =>
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setter(event.target.value);
-    };
+  const handleField = (setter: Dispatch<SetStateAction<any>>) => (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setter(event.target.value);
+  };
 
   const userExists = async (email: string) => {
     const { count } = await supabase
@@ -70,19 +70,21 @@ export default function App() {
     return count! > 0;
   };
 
-  const handleSubmit =
-    (username: string, email: string, password: string) =>
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      console.log(username, email, password);
-      if (username.length === 0 || email.length === 0 || password.length === 0)
-        window.alert("Please fill in all fields");
-      else if (await userExists(email))
-        window.alert(`User with email: "${email}" already exists`);
-      else if (await userNameExists(username))
-        window.alert(`User with username: "${username}" already exists`);
-      else signUp(username, email, password);
-    };
+  const handleSubmit = (
+    username: string,
+    email: string,
+    password: string
+  ) => async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(username, email, password);
+    if (username.length === 0 || email.length === 0 || password.length === 0)
+      window.alert("Please fill in all fields");
+    else if (await userExists(email))
+      window.alert(`User with email: "${email}" already exists`);
+    else if (await userNameExists(username))
+      window.alert(`User with username: "${username}" already exists`);
+    else signUp(username, email, password);
+  };
 
   return (
     <main className="main">
