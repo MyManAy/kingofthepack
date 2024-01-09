@@ -1,3 +1,7 @@
+body {
+  overflow-y: hidden;
+}
+
 .fadein {
   opacity: 1;
   transition: opacity 0.8s ease;
@@ -9,15 +13,11 @@
 }
 
 .disappear {
-  position: absolute;
-  top: 50%;
-  animation: slide-right 1.2s ease;
+  /* animation: slide-right 1.2s ease; */
 }
 
 .appear {
-  position: absolute;
-  top: 50%;
-  animation: slide-up 1.2s ease;
+  /* animation: slide-up 1.2s ease; */
 }
 
 .neonText {
