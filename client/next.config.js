@@ -5,6 +5,12 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  headers: () => [
+    {
+      source: "/_next/static/css/_app-client_src_app_globals_css.css",
+      headers: [{ key: "Vary", value: "*" }],
+    },
+  ],
 };
 
 module.exports = nextConfig;

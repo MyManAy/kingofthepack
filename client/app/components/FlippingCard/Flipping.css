@@ -1,8 +1,8 @@
 /* THE MAINCONTAINER HOLDS EVERYTHING */
 .maincontainer {
   position: absolute;
-  width: var(--card-width);
-  height: var(--card-height);
+  width: 100%;
+  height: 100%;
   background: none;
   left: 50%;
   top: 50%;

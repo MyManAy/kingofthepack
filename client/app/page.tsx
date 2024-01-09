@@ -6,7 +6,7 @@ export default () => {
   return (
     <ProtectedLayout>
       <div className="flex flex-col gap-10 justify-center align-middle">
-        <div className="h-[65vh] w-[calc(65vh/1.5)] text-4xl">
+        <div className="h-[65vh] w-[calc(65vh/1.5)] text-4xl flex justify-center">
           <MagicCard />
         </div>
         <div className="flex flex-col gap-5 justify-center align-middle">

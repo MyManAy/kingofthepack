@@ -1,4 +1,5 @@
 "use client";
+
 import ArrowLeft from "@mui/icons-material/ArrowBackIosNew";
 import FlippingCard from "../components/FlippingCard/FlippingCard";
 import "./page.css";
