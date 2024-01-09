@@ -1,6 +1,5 @@
 import "../../components/TradingCard/Iridescent.css";
 import "../../components/TradingCard/Neon.css";
-import "./Card.css";
 import "./Flipping.css";
 import TradingCard, {
   IAppProps as TradingCardProps,
