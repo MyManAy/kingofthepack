@@ -1,6 +1,6 @@
 import CollectionDisplay from "../components/CollectionDisplay/CollectionDisplay";
-import PageCenterLayout from "../components/PageCenterLayout";
-import ProtectedLayout from "../components/ProtectedLayout";
+import PageCenterLayout from "../components/Layouts/PageCenterLayout";
+import ProtectedLayout from "../components/Layouts/ProtectedLayout";
 import StripeCheckout from "../components/StripeCheckout";
 import { supabase } from "../utils/supabase";
 

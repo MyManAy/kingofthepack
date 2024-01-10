@@ -1,7 +1,7 @@
 import MagicCard from "./components/MagicCard/MagicCard";
-import ProtectedLayout from "./components/ProtectedLayout";
+import ProtectedLayout from "./components/Layouts/ProtectedLayout";
 import GreenButton from "./components/GreenButton";
-import PageCenterLayout from "./components/PageCenterLayout";
+import PageCenterLayout from "./components/Layouts/PageCenterLayout";
 export default () => {
   return (
     <ProtectedLayout>

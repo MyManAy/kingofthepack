@@ -1,8 +1,8 @@
 import Link from "next/link";
 import CollectionDisplay from "../components/CollectionDisplay/CollectionDisplay";
-import ProtectedLayout from "../components/ProtectedLayout";
+import ProtectedLayout from "../components/Layouts/ProtectedLayout";
 import { supabase } from "../utils/supabase";
-import PageCenterLayout from "../components/PageCenterLayout";
+import PageCenterLayout from "../components/Layouts/PageCenterLayout";
 
 export const dynamic = "force-dynamic";
 
