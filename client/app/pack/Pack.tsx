@@ -1,4 +1,7 @@
 "use client";
+
+import ArrowLeft from "@mui/icons-material/ArrowBackIosNew";
+import FlippingCard from "../components/FlippingCard/FlippingCard";
 import "./page.css";
 import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
@@ -102,12 +105,8 @@ export default () => {
   }, [pack]);
 
   return (
-    <div className="flex flex-col gap-10 justify-center items-center ">
-      <div className="w-60 h-60 bg-white"></div>
-      {/* <div className="h-[65vh] w-[calc(65vh/1.5)] text-5xl flex justify-center">
-        <MagicCard />
-      </div> */}
-      {/* <div className="text-white flex absolute left-3 pt-1 justify-center align-middle text-5xl font-bold">
+    <>
+      <div className="text-white absolute right-5 top-5 justify-center align-middle text-5xl font-bold">
         {pack && pack.length}
       </div>
       <ArrowLeft
@@ -116,7 +115,6 @@ export default () => {
         style={{
           color: "white",
           position: "absolute",
-          top: "47.5%",
           left: "400px",
           cursor: "pointer",
         }}
@@ -126,7 +124,24 @@ export default () => {
             onArrowClick();
           }
         }}
-      /> */}
-    </div>
+      />
+      {pack && pack.length > 0 && (
+        <div
+          className={!arrowVisible && hasBeenFlipped ? "disappear" : "appear"}
+          onClick={onCardClick}
+          onKeyDown={(event) => {
+            if (event.code === "Space") {
+              onCardClick();
+            }
+          }}
+        >
+          <FlippingCard
+            props={pack[0]}
+            flipped={flipped}
+            transition={arrowVisible}
+          />
+        </div>
+      )}
+    </>
   );
 };

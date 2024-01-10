@@ -5,6 +5,7 @@ import CollectionPage from "@/app/components/Collection/CollectionPage";
 import ProtectedLayout from "@/app/components/ProtectedLayout";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import PageCenterLayout from "@/app/components/PageCenterLayout";
 
 export const dynamic = "force-dynamic";
 
@@ -51,17 +52,19 @@ export default async function App({
   const cardProps = sorted;
   return (
     <ProtectedLayout>
-      <Suspense
-        fallback={
-          <CollectionLoading
-            setName={setName}
-            totalCards={totalCards}
-            cardProps={cardProps}
-          />
-        }
-      >
-        <CollectionPage setId={setId} />
-      </Suspense>
+      <PageCenterLayout>
+        <Suspense
+          fallback={
+            <CollectionLoading
+              setName={setName}
+              totalCards={totalCards}
+              cardProps={cardProps}
+            />
+          }
+        >
+          <CollectionPage setId={setId} />
+        </Suspense>
+      </PageCenterLayout>
     </ProtectedLayout>
   );
 }

@@ -1,5 +1,4 @@
 import CollectionCard from "@/app/components/CollectionCard/CollectionCard";
-import "./page.css";
 import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";

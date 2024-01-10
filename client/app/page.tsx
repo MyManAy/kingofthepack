@@ -1,10 +1,11 @@
 import MagicCard from "./components/MagicCard/MagicCard";
 import ProtectedLayout from "./components/ProtectedLayout";
 import GreenButton from "./components/GreenButton";
+import PageCenterLayout from "./components/PageCenterLayout";
 export default () => {
   return (
     <ProtectedLayout>
-      <div className="min-h-screen flex justify-center items-center flex-col overflow-hidden">
+      <PageCenterLayout>
         <div className="flex flex-col gap-10 justify-center align-middle">
           <div className="h-[65vh] w-[calc(65vh/1.5)] text-5xl flex justify-center">
             <MagicCard />
@@ -14,7 +15,7 @@ export default () => {
             <GreenButton text="Collections" route="/collections" />
           </div>
         </div>
-      </div>
+      </PageCenterLayout>
     </ProtectedLayout>
   );
 };

@@ -1,10 +1,13 @@
+import PageCenterLayout from "../components/PageCenterLayout";
 import ProtectedLayout from "../components/ProtectedLayout";
 import Pack from "./Pack";
 
 export default () => {
   return (
     <ProtectedLayout>
-      <Pack />
+      <PageCenterLayout>
+        <Pack />
+      </PageCenterLayout>
     </ProtectedLayout>
   );
 };
