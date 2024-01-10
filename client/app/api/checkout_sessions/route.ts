@@ -25,7 +25,7 @@ export async function POST(req: Request, res: Response) {
       ],
       mode: "payment",
       success_url: `${originLink}/pack`,
-      cancel_url: `${originLink}?canceled=true`,
+      cancel_url: `${originLink}/packs`,
       customer_email: userEmail,
     });
     console.log("worked this is the test");
