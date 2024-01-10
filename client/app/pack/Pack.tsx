@@ -103,7 +103,10 @@ export default () => {
   }, [flipped]);
 
   useEffect(() => {
-    if (pack && pack.length === 0) router.push("/");
+    if (pack && pack.length === 0) {
+      document.querySelector("body")!.style.overflowY = "visible";
+      router.push("/");
+    }
   }, [pack]);
 
   return (
