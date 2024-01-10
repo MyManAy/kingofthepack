@@ -1,6 +1,5 @@
 import "../../components/TradingCard/Iridescent.css";
 import "../../components/TradingCard/Neon.css";
-import "./Card.css";
 import "./Flipping.css";
 import TradingCard, {
   IAppProps as TradingCardProps,
@@ -15,7 +14,7 @@ interface IAppProps {
 
 export default function App({ props, flipped, transition }: IAppProps) {
   return (
-    <div className="maincontainer">
+    <div className="maincontainer text-x">
       <div
         className={`thecard  ${flipped ? "flipped" : ""} ${
           transition ? "transition" : ""

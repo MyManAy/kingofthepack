@@ -6,8 +6,9 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import { IAppProps } from "../components/TradingCard/TradingCard";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/app/utils/supabase";
 import emailMinify from "../utils/minifyEmail";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../generated/types_db";
 
 export default () => {
   const router = useRouter();
@@ -16,6 +17,8 @@ export default () => {
   const [pack, setPack] = useState(null as null | IAppProps[]);
   const [flipped, setFlipped] = useState(false);
   const [email, setEmail] = useState(null as null | string);
+
+  const supabase = createClientComponentClient<Database>();
 
   const onArrowClick = () => {
     if (arrowVisible) {
@@ -52,17 +55,14 @@ export default () => {
       )
   `
       )
-      .eq("userEmail", email)
+      .eq("userEmail", email!)
       .order("id", { ascending: false })
       .limit(1)
       .single();
 
-    console.log("hello" + getCardProps);
-
     const cards = (openedPack!.circulationCard!.map(
       (cc) => cc.card!
     ) as unknown) as IAppProps[];
-    console.log("bye" + cards);
     setPack(cards);
   };
 
@@ -73,6 +73,8 @@ export default () => {
   };
 
   useEffect(() => {
+    // hacky solution to change body style for only this webpage without manipulating the base one
+    document.querySelector("body")!.style.overflowY = "hidden";
     getMinifiedEmail();
   }, []);
 
@@ -105,8 +107,8 @@ export default () => {
   }, [pack]);
 
   return (
-    <div className="flex flex-col gap-10 justify-center align-middle">
-      <div className="text-white flex absolute left-3 pt-1 justify-center align-middle text-5xl font-bold">
+    <>
+      <div className="text-white absolute right-5 top-5 justify-center align-middle text-5xl font-bold">
         {pack && pack.length}
       </div>
       <ArrowLeft
@@ -115,7 +117,6 @@ export default () => {
         style={{
           color: "white",
           position: "absolute",
-          top: "47.5%",
           left: "400px",
           cursor: "pointer",
         }}
@@ -143,6 +144,6 @@ export default () => {
           />
         </div>
       )}
-    </div>
+    </>
   );
 };

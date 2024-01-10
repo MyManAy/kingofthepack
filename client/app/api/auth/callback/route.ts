@@ -2,7 +2,7 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const originLink = "https://kingofthepack.vercel.app";
+const originLink = "http://localhost:3000";
 
 export async function GET(req: Request, res: Response) {
   const requestUrl = new URL(req.url);

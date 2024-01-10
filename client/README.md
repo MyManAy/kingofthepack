@@ -58,3 +58,9 @@ https://supabase.com/docs/guides/api/rest/generating-types
 
 1. cd into client
 2. npx supabase gen types typescript --project-id "vdbkaqjcvygphoahmtgo" --schema public > app/generated/types_db.ts
+
+DEV ONLY:
+
+1. make sure to paste all the envs in .env from vercel
+2. go to https://supabase.com/dashboard/project/vdbkaqjcvygphoahmtgo/auth/url-configuration and change site url localhost or whatever
+3. change the site url back when using deployed version

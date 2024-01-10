@@ -22,7 +22,7 @@ const rarityStyleMapping: RarityStyleMapping = {
   },
   Rare: {
     bgStyle:
-      "bg-indigo-600  w-[100%] flex flex-col align-middle justify-center rounded-md gap-4",
+      "bg-indigo-600 w-[100%] flex flex-col align-middle justify-center rounded-md gap-4",
     nameStyle:
       "text-white flex align-middle opacity-90 font-semibold text-4xl justify-center",
     rarityStyle:
@@ -82,7 +82,9 @@ export default function App({
         <Image
           alt={animalName}
           src={src}
-          className="self-center rounded h-[300px]"
+          height={0}
+          width={300}
+          className="self-center rounded"
         />
         <div
           className={
