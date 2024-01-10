@@ -64,3 +64,4 @@ DEV ONLY:
 1. make sure to paste all the envs in .env from vercel
 2. go to https://supabase.com/dashboard/project/vdbkaqjcvygphoahmtgo/auth/url-configuration and change site url localhost or whatever
 3. change the site url back when using deployed version
+4. Go through the files in api and auth and change all the originLinks

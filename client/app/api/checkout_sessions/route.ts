@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const originLink = "http://localhost:3000";
+const originLink = "https://kingofthepack.vercel.app";
 
 export async function POST(req: Request, res: Response) {
   const { searchParams } = new URL(req.url);
