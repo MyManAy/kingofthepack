@@ -1,108 +1,76 @@
-import CollectionCard from "@/app/components/CollectionCard/CollectionCard";
-import { IAppProps } from "@/app/components/CollectionCard/CollectionCard";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/app/generated/types_db";
-import emailMinify from "@/app/utils/minifyEmail";
+import { CardProp } from "@/app/collection/[id]/page";
+import GreenButton from "../GreenButton";
+import CollectionTemplate from "./CollectionTemplate";
 
-export default async function App({ setId }: { setId: string }) {
+export interface IAppProps {
+  setId: string;
+  setName: string;
+  cardProps: CardProp[];
+  totalCards: number;
+}
+
+export default async function App({
+  setName,
+  cardProps,
+  setId,
+  totalCards,
+}: IAppProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data } = await supabase.auth.getSession();
-  const userEmail = data.session?.user.email;
-  const email = emailMinify(userEmail!);
-
-  const { data: set } = await supabase
-    .from("set")
-    .select(
-      `
-        name,
-        weighting (
-          rarity,
-          weighting
-        ),
-        card (
-          *
-        )
-  `
-    )
-    .eq("id", setId!)
-    .single();
-
-  const { card, weighting, name } = set!;
-  const totalCards = card.length;
-  const setName = name;
 
   const { data: userCardIds } = await supabase
-    .from("user")
+    .from("circulationCard")
     .select(
       `
-      openedPack (
-        circulationCard (
-          card (
+      card!inner (
+            setId,
             id
           )
-        )
-      )
-   `
+      `
     )
-    .eq("email", email)
-    .single();
+    .eq("card.setId", Number(setId));
+
+  type SupabaseResponse = typeof userCardIds;
 
   let cardsCollected = 0;
-  let cardProps: IAppProps[] = card.map((item) => ({ ...item, count: 0 }));
-  if (userCardIds?.openedPack) {
-    const ids = userCardIds?.openedPack.flatMap((op) =>
-      op.circulationCard.flatMap((cc) => cc.card!.id)
-    );
-    if (ids.length > 0) {
-      let propWithCount: IAppProps[] = [];
-      for (const prop of card) {
-        const count = ids.filter((id) => id === prop.id).length;
-        if (count > 0) cardsCollected++;
-        propWithCount.push({ ...prop, count: count });
-      }
-      const getWeightingFromRarity = (rarity: string) =>
-        weighting.find((item) => item.rarity === rarity);
-      const sorted = propWithCount.sort(
-        (a, b) =>
-          getWeightingFromRarity(b.rarity)!.weighting -
-          getWeightingFromRarity(a.rarity)!.weighting
-      );
-      cardProps = sorted;
+  const calculateCounts = (userCardIds: SupabaseResponse) => {
+    const ids = userCardIds!.map((item) => item!.card!.id);
+    let counts: { [index: number]: number } = {};
+    for (const id of ids) {
+      if (counts[id]) counts[id]++;
+      else counts[id] = 1;
     }
-  }
+    const propsWithCount = cardProps.map((item) => ({
+      ...item,
+      count: counts[item.id] ?? 0,
+    }));
+    cardsCollected = Object.keys(counts).length;
+    return propsWithCount;
+  };
 
   return (
     <>
-      <div className={"grid grid-cols-[1fr_4fr_1fr] w-full mb-10"}>
-        <div></div>
-        <div className={"text-white font-bold text-4xl text-center m-auto"}>
-          {setName}
-        </div>
-        <div className="flex flex-col justify-center">
+      {userCardIds ? (
+        <CollectionTemplate
+          cardPropsWithCount={calculateCounts(userCardIds)}
+          cardsCollected={cardsCollected.toString()}
+          setName={setName}
+          totalCards={totalCards}
+        />
+      ) : (
+        <>
           <div
-            className={
-              "text-white opacity-60 font-bold text-xl text-center m-auto"
-            }
-          >
-            total cards: {totalCards}
+            className={"text-white font-bold text-4xl mb-10"}
+          >{`You haven't opened any ${setName} packs yet!`}</div>
+          <div className={"flex flex-row flex-wrap justify-center"}>
+            <div className="flex flex-col gap-5 justify-center align-middle">
+              <GreenButton text="Get packs here!" route="/packs" />
+            </div>
           </div>
-          <div
-            className={
-              "text-white opacity-60 font-bold text-xl text-center m-auto"
-            }
-          >
-            cards collected: {cardsCollected}
-          </div>
-        </div>
-      </div>
-      <div className={"flex flex-row flex-wrap justify-center"}>
-        {cardProps.map((item, index) => (
-          <div className={"p-5"}>
-            <CollectionCard {...item} key={index} />
-          </div>
-        ))}
-      </div>
+        </>
+      )}
     </>
   );
 }
