@@ -73,6 +73,8 @@ export default () => {
   };
 
   useEffect(() => {
+    // hacky solution to change body style for only this webpage without manipulating the base one
+    document.querySelector("body")!.style.overflowY = "hidden";
     getMinifiedEmail();
   }, []);
 

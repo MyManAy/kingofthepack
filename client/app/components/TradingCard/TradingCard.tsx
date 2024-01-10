@@ -82,8 +82,8 @@ export default function App({
         <Image
           alt={animalName}
           src={src}
-          height={300}
-          width={350}
+          height={0}
+          width={300}
           className="self-center rounded"
         />
         <div
