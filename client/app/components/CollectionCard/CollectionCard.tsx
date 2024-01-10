@@ -69,7 +69,7 @@ export default function App({
           : rarityStyleMapping[rarity as Rarity].bgStyle
       }`}
     >
-      <div className="w-6 h-7 rounded-tl-md rounded-br-md bg-black text-white flex font-black justify-center items-center">
+      <div className="h-6 rounded-tl-md rounded-br-md bg-black text-white flex font-black justify-center items-center">
         {count}
       </div>
       <div
