@@ -1,16 +1,26 @@
-import { supabase as AdminSupabase } from "../../utils/supabase";
+import { supabase as publicSupabase } from "../../utils/supabase";
 import CollectionLoading from "@/app/components/Collection/CollectionLoading";
 import { Suspense } from "react";
 import CollectionPage from "@/app/components/Collection/CollectionPage";
 import ProtectedLayout from "@/app/components/Layouts/ProtectedLayout";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import PageCenterLayout from "@/app/components/Layouts/PageCenterLayout";
+import { supabase } from "@/app/utils/adminSupabase";
 
 export const dynamic = "force-dynamic";
 
+export interface CardProp {
+  animalName: string;
+  created_at: string | null;
+  id: number;
+  rarity: string;
+  setId: number;
+  src: string;
+  totalVariations: number | null;
+  variation: number | null;
+}
+
 export async function generateStaticParams() {
-  const { data: set } = await AdminSupabase.from("set").select("id");
+  const { data: set } = await publicSupabase.from("set").select("id");
   const ids = set?.map((item) => item.id)!;
   return ids.map((id) => ({ id: id.toString() }));
 }
@@ -20,7 +30,6 @@ export default async function App({
 }: {
   params: { id: string };
 }) {
-  const supabase = createServerComponentClient({ cookies });
   const { data: set } = await supabase
     .from("set")
     .select(
@@ -44,7 +53,7 @@ export default async function App({
 
   const getWeightingFromRarity = (rarity: string) =>
     weighting.find((item) => item.rarity === rarity);
-  const sorted = card.sort(
+  const sorted = card.toSorted(
     (a, b) =>
       getWeightingFromRarity(b.rarity)!.weighting -
       getWeightingFromRarity(a.rarity)!.weighting
@@ -62,7 +71,12 @@ export default async function App({
             />
           }
         >
-          <CollectionPage setId={setId} />
+          <CollectionPage
+            setName={setName}
+            totalCards={totalCards}
+            cardProps={cardProps}
+            setId={setId}
+          />
         </Suspense>
       </PageCenterLayout>
     </ProtectedLayout>
