@@ -9,8 +9,10 @@ export async function POST(req: Request, res: Response) {
   const { searchParams } = new URL(req.url);
   const priceId = searchParams.get("priceId");
   const supabase = createRouteHandlerClient({ cookies });
-  const { data } = await supabase.auth.getUser();
-  const userEmail = data?.user?.email;
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userEmail = session?.user?.email;
   try {
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
