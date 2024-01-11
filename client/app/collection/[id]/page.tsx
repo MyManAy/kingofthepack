@@ -53,7 +53,7 @@ export default async function App({
 
   const getWeightingFromRarity = (rarity: string) =>
     weighting.find((item) => item.rarity === rarity);
-  const sorted = card.toSorted(
+  const sorted = card.sort(
     (a, b) =>
       getWeightingFromRarity(b.rarity)!.weighting -
       getWeightingFromRarity(a.rarity)!.weighting
