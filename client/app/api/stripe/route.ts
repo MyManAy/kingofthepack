@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { headers } from "next/dist/client/components/headers";
 import { NextResponse } from "next/server";
-import { supabase } from "@/app/utils/supabase";
+import { supabase } from "@/app/utils/adminSupabase";
 import { randomCardId, randomRarity } from "@/app/utils/weightedRandom";
 import emailMinify from "@/app/utils/minifyEmail";
 

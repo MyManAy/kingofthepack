@@ -1,5 +1,5 @@
 import emailMinify from "@/app/utils/minifyEmail";
-import { supabase } from "@/app/utils/supabase";
+import { supabase } from "@/app/utils/adminSupabase";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request, res: any) {
