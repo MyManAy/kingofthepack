@@ -73,9 +73,13 @@ export default () => {
   };
 
   useEffect(() => {
+    getMinifiedEmail();
+
     // hacky solution to change body style for only this webpage without manipulating the base one
     document.querySelector("body")!.style.overflowY = "hidden";
-    getMinifiedEmail();
+    return () => {
+      document.querySelector("body")!.style.overflowY = "visible";
+    };
   }, []);
 
   useEffect(() => {
@@ -103,10 +107,7 @@ export default () => {
   }, [flipped]);
 
   useEffect(() => {
-    if (pack && pack.length === 0) {
-      document.querySelector("body")!.style.overflowY = "visible";
-      router.push("/");
-    }
+    if (pack && pack.length === 0) router.push("/");
   }, [pack]);
 
   return (
