@@ -31,6 +31,7 @@ export async function POST(req: Request, res: any) {
       .insert({ email: emailMinify(email), username: username!, id })
       .select();
   }
+  console.log(record);
 
   return NextResponse.json({
     recieved: true,
