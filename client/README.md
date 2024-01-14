@@ -57,7 +57,7 @@ TO GENERATE SUPABASE TYPES:
 https://supabase.com/docs/guides/api/rest/generating-types
 
 1. cd into client
-2. npx supabase gen types typescript --project-id "vdbkaqjcvygphoahmtgo" --schema public > app/generated/types_db.ts
+2. npx supabase gen types typescript --project-id "PASTE_PROJECT_ID_HERE" --schema public > app/generated/types_db.ts
 
 DEV ONLY:
 
