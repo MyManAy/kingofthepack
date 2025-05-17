@@ -104,6 +104,6 @@ export async function POST(req: Request, res: any) {
     }
   }
   return NextResponse.json({
-    recieved: true,
+    received: true,
   });
 }
